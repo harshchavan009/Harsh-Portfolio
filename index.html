@@ -19,6 +19,11 @@
 </head>
 <body class="bg-bg-dark text-text-ivory selection:bg-brass-accent/20 selection:text-text-ivory">
 
+  <!-- Drifting Saturated Background Gradient Blobs -->
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+  <div class="bg-glow-3"></div>
+
   <!-- Grid Blueprint Background -->
   <div class="schematic-bg"></div>
   <div class="schematic-overlay"></div>
@@ -94,6 +99,29 @@
           <a href="#contact" class="px-7 py-3 border border-border-dark bg-card-dark/40 hover:border-brass-accent/50 text-text-ivory font-mono text-xs uppercase tracking-widest rounded transition-all flex items-center justify-center">
             Connect
           </a>
+        </div>
+
+        <!-- Diagnostics Sub-grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full mt-12 border-t border-border-dark/40 pt-8">
+          <div class="font-mono">
+            <div class="text-[9px] text-text-slate uppercase tracking-wider">SYS_STATUS</div>
+            <div class="text-xs text-emerald-400 font-bold flex items-center gap-1.5 mt-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              NOMINAL
+            </div>
+          </div>
+          <div class="font-mono">
+            <div class="text-[9px] text-text-slate uppercase tracking-wider">AGENT_PIPELINE</div>
+            <div class="text-xs text-text-ivory font-bold mt-1">ACTIVE (byLLM)</div>
+          </div>
+          <div class="font-mono">
+            <div class="text-[9px] text-text-slate uppercase tracking-wider">NET_LATENCY</div>
+            <div class="text-xs text-text-ivory font-bold mt-1">12.4ms (avg)</div>
+          </div>
+          <div class="font-mono">
+            <div class="text-[9px] text-text-slate uppercase tracking-wider">GEOGRAPHY</div>
+            <div class="text-xs text-brass-accent font-bold mt-1">VDD_GUJ // IN</div>
+          </div>
         </div>
       </div>
       <!-- Right Dashboard Panel: Interactive Terminal -->
@@ -259,10 +287,13 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 tilt-card-container">
       
       <!-- Project 1 -->
-      <div class="tilt-card p-6 bg-card-dark border border-border-dark/60 rounded flex flex-col justify-between h-[360px] hover:border-brass-accent/30 hover:shadow-[0_15px_30px_rgba(198,151,73,0.04)]">
+      <div class="tilt-card glass-panel p-6 rounded flex flex-col justify-between h-[370px] transition-all">
         <div>
           <div class="flex justify-between items-start mb-4">
-            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent">SYSTEM ARCHITECTURE</span>
+            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span>
+              SYSTEM ARCHITECTURE
+            </span>
             <svg class="w-4 h-4 text-text-slate" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </div>
           <h3 class="text-md font-sans font-bold text-text-ivory mb-3 hover:text-brass-accent transition-colors">Enterprise Multi-Agent Graph RAG System</h3>
@@ -284,10 +315,13 @@
       </div>
 
       <!-- Project 2 -->
-      <div class="tilt-card p-6 bg-card-dark border border-border-dark/60 rounded flex flex-col justify-between h-[360px] hover:border-brass-accent/30 hover:shadow-[0_15px_30px_rgba(198,151,73,0.04)]">
+      <div class="tilt-card glass-panel p-6 rounded flex flex-col justify-between h-[370px] transition-all">
         <div>
           <div class="flex justify-between items-start mb-4">
-            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent">COMPILER ENGINE</span>
+            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-cyan-400 animate-pulse"></span>
+              COMPILER ENGINE
+            </span>
             <svg class="w-4 h-4 text-text-slate" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </div>
           <h3 class="text-md font-sans font-bold text-text-ivory mb-3 hover:text-brass-accent transition-colors">Model-Agnostic AI-Integrated PLC Prompt Engineering</h3>
@@ -309,10 +343,13 @@
       </div>
 
       <!-- Project 3 -->
-      <div class="tilt-card p-6 bg-card-dark border border-border-dark/60 rounded flex flex-col justify-between h-[360px] hover:border-brass-accent/30 hover:shadow-[0_15px_30px_rgba(198,151,73,0.04)]">
+      <div class="tilt-card glass-panel p-6 rounded flex flex-col justify-between h-[370px] transition-all">
         <div>
           <div class="flex justify-between items-start mb-4">
-            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent">COMPUTER VISION</span>
+            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-rose-500 animate-pulse"></span>
+              COMPUTER VISION
+            </span>
             <svg class="w-4 h-4 text-text-slate" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </div>
           <h3 class="text-md font-sans font-bold text-text-ivory mb-3 hover:text-brass-accent transition-colors">EcoVision AI — Smart Waste Management Ecosystem</h3>
@@ -394,64 +431,131 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 tilt-card-container">
       
       <!-- Group 1: Languages -->
-      <div class="tilt-card p-6 bg-card-dark border border-border-dark/60 rounded flex flex-col justify-between h-[220px]">
+      <div class="tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px]">
         <div>
-          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2">01 // LANGUAGES</h3>
+          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2 flex items-center justify-between">
+            <span>01 // LANGUAGES</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          </h3>
           <div class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Python</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Java</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">C/C++</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">SQL</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">JavaScript</span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-500/80"></span>
+              Python
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              Java
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              C/C++
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              SQL
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              JavaScript
+            </span>
           </div>
         </div>
-        <span class="font-mono text-[9px] text-text-slate uppercase">Deterministic Codebases</span>
+        <span class="font-mono text-[9px] text-text-slate uppercase tracking-wider">Deterministic Codebases</span>
       </div>
 
       <!-- Group 2: AI/GenAI -->
-      <div class="tilt-card p-6 bg-card-dark border border-border-dark/60 rounded flex flex-col justify-between h-[220px]">
+      <div class="tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px]">
         <div>
-          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2">02 // AI & GEN_AI</h3>
+          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2 flex items-center justify-between">
+            <span>02 // AI & GEN_AI</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          </h3>
           <div class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 bg-bg-dark border border-brass-accent/20 rounded text-[10px] font-mono text-brass-accent">LLMs</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">RAG</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Multi-Agent AI</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Prompt Engineering</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">byLLM</span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-brass-accent/30 rounded text-[10px] font-mono text-brass-accent flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-brass-accent"></span>
+              LLMs
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              RAG
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              Multi-Agent AI
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              Prompt Eng.
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
+              byLLM
+            </span>
           </div>
         </div>
-        <span class="font-mono text-[9px] text-text-slate uppercase">Semantic Graph Orchestration</span>
+        <span class="font-mono text-[9px] text-text-slate uppercase tracking-wider">Semantic Graph Orchestration</span>
       </div>
 
       <!-- Group 3: Frameworks -->
-      <div class="tilt-card p-6 bg-card-dark border border-border-dark/60 rounded flex flex-col justify-between h-[220px]">
+      <div class="tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px]">
         <div>
-          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2">03 // FRAMEWORKS</h3>
+          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2 flex items-center justify-between">
+            <span>03 // FRAMEWORKS</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          </h3>
           <div class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">FastAPI</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">React</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Node.js</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Flask</span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              FastAPI
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              React
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              Node.js
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              Flask
+            </span>
           </div>
         </div>
-        <span class="font-mono text-[9px] text-text-slate uppercase">API Core & Client Layer</span>
+        <span class="font-mono text-[9px] text-text-slate uppercase tracking-wider">API Core & Client Layer</span>
       </div>
 
-      <!-- Group 4: Tools -->
-      <div class="tilt-card p-6 bg-card-dark border border-border-dark/60 rounded flex flex-col justify-between h-[220px]">
+      <!-- Group 4: Environment -->
+      <div class="tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px]">
         <div>
-          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2">04 // ENVIRONMENT</h3>
+          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2 flex items-center justify-between">
+            <span>04 // ENVIRONMENT</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          </h3>
           <div class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Git</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Docker</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Azure</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Postman</span>
-            <span class="px-2 py-0.5 bg-bg-dark border border-border-dark rounded text-[10px] font-mono text-text-ivory">Linux</span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              Git
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              Docker
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              Azure
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              Postman
+            </span>
+            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
+              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
+              Linux
+            </span>
           </div>
         </div>
-        <span class="font-mono text-[9px] text-text-slate uppercase">Sys Ops & Containerization</span>
-      </div>
-
+        <span class="font-mono text-[9px] text-text-slate uppercase tracking-wider">Sys Ops & Containerization</span>
     </div>
   </section>
 

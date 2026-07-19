@@ -353,7 +353,7 @@ async function fetchGitHubRepos() {
       const langColor = getLanguageColor(language);
 
       const card = document.createElement("div");
-      card.className = "tilt-card p-6 bg-card-dark border border-border-dark/60 rounded flex flex-col justify-between h-[230px] hover:border-brass-accent/30 transition-all duration-300";
+      card.className = "tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px] transition-all duration-300";
       card.innerHTML = `
         <div>
           <div class="flex items-center justify-between gap-2 mb-3">
