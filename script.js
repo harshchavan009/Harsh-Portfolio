@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchGitHubRepos();
   fetchLeetCodeStats();
   initContactForm();
-  initInteractiveTerminal();
   initScrollTracker();
   initScrollReveal();
   initFloatingGlyphs();
+  initHudWave();
 });
 
 /* =========================================================================
@@ -622,77 +622,62 @@ function initContactForm() {
 }
 
 /* =========================================================================
-   6. INTERACTIVE COMMAND TERMINAL
+   6. INTERACTIVE HUD SINE WAVE GENERATOR
    ========================================================================= */
-function initInteractiveTerminal() {
-  const terminalInput = document.getElementById("terminal-input");
-  const terminalOutput = document.getElementById("terminal-output");
-  const terminalScreen = document.getElementById("terminal-screen");
-  if (!terminalInput || !terminalOutput || !terminalScreen) return;
-
-  const commands = {
-    "/help": `Available commands: <br>
-      <span class="text-brass-accent">/about</span> - Bio & background context <br>
-      <span class="text-brass-accent">/projects</span> - Summary of system works <br>
-      <span class="text-brass-accent">/skills</span> - Core engineering tech stack <br>
-      <span class="text-brass-accent">/contact</span> - Get direct transmission details <br>
-      <span class="text-brass-accent">/clear</span> - Clear logs`,
-    "/about": `<strong>Harsh Chavan</strong> is a rare hybrid systems engineer. <br>
-      Academic base: B.Tech CSE (AI/ML) at Parul University (2024-2028). <br>
-      Core focus: Bridging deterministic industrial logic (Siemens PLC ladder logic) and generative intelligence architectures (Multi-Agent RAG).`,
-    "/projects": `<strong>Featured System Integrations:</strong> <br>
-      1. <span class="text-brass-accent">Enterprise Multi-Agent Graph RAG</span> - LangGraph + Neo4j reasoning engine.<br>
-      2. <span class="text-brass-accent">AI-Integrated PLC Compiler</span> - automating S7-1500 LAD generation via byLLM prompt frameworks.<br>
-      3. <span class="text-brass-accent">EcoVision AI</span> - waste classification pipeline containerized with Docker.`,
-    "/skills": `<strong>Core Engineering Stack:</strong> <br>
-      - Languages: Python, Java, C++, SQL, JS <br>
-      - AI / GenAI: LLMs, LangGraph, RAG, Prompt Engineering, byLLM <br>
-      - Environment: Docker, Azure, Linux, Git, Postman`,
-    "/contact": `<strong>Transmission Details:</strong> <br>
-      - Email: <a href="mailto:harshchavan1030@gmail.com" class="underline hover:text-brass-accent">harshchavan1030@gmail.com</a> <br>
-      - Phone: +91 8208701176 <br>
-      - LinkedIn: harsh-chavan-5804a5344 <br>
-      - GitHub: harshchavan009`,
-  };
-
-  terminalInput.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      const rawInput = terminalInput.value.trim();
-      if (!rawInput) return;
-
-      const cmd = rawInput.toLowerCase();
-      
-      // Append entered command
-      const cmdLine = document.createElement("p");
-      cmdLine.className = "text-text-ivory font-bold mt-2";
-      cmdLine.innerHTML = `sys_guest$ ${rawInput}`;
-      terminalOutput.appendChild(cmdLine);
-
-      // Process command
-      const responseLine = document.createElement("p");
-      responseLine.className = "text-text-slate text-[9px] mt-1 pl-2 border-l border-border-dark/60 leading-relaxed";
-
-      if (cmd === "/clear") {
-        terminalOutput.innerHTML = `<p class="text-brass-accent font-bold">// HARSH_CHAVAN_SYS LOGS CLEARED</p>`;
-      } else if (commands[cmd]) {
-        responseLine.innerHTML = commands[cmd];
-        terminalOutput.appendChild(responseLine);
-      } else {
-        responseLine.innerHTML = `Command not recognized: <span class="text-rose-400 font-bold">${rawInput}</span>. Type <span class="text-brass-accent">/help</span> for assistance.`;
-        terminalOutput.appendChild(responseLine);
-      }
-
-      // Reset & scroll
-      terminalInput.value = "";
-      setTimeout(() => {
-        terminalScreen.scrollTop = terminalScreen.scrollHeight;
-      }, 20);
+function initHudWave() {
+  const canvas = document.getElementById("hud-wave-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  
+  // Set drawing resolutions
+  canvas.width = canvas.clientWidth;
+  canvas.height = canvas.clientHeight;
+  
+  let phase = 0;
+  function draw() {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    const width = canvas.width;
+    const height = canvas.height;
+    const midY = height / 2;
+    
+    // Wave 1: Primary Gold/Brass Wave
+    ctx.beginPath();
+    ctx.lineWidth = 1.2;
+    ctx.strokeStyle = "#C69749"; // Gold
+    
+    for (let x = 0; x < width; x++) {
+      const angle = (x / width) * Math.PI * 3 + phase;
+      const y = midY + Math.sin(angle) * (height * 0.28);
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
     }
-  });
+    ctx.stroke();
+    
+    // Wave 2: Secondary Cyan Wave (Out of phase)
+    ctx.beginPath();
+    ctx.lineWidth = 0.8;
+    ctx.strokeStyle = "rgba(34, 211, 238, 0.4)"; // Cyan
+    
+    for (let x = 0; x < width; x++) {
+      const angle = (x / width) * Math.PI * 2.5 - phase * 1.3;
+      const y = midY + Math.cos(angle) * (height * 0.22);
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
 
-  // Keep terminal input focused when clicking the container
-  terminalScreen.parentNode.addEventListener("click", () => {
-    terminalInput.focus();
+    phase += 0.045; // movement speed
+    requestAnimationFrame(draw);
+  }
+  
+  draw();
+  
+  // Responsive resize observer
+  window.addEventListener("resize", () => {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
   });
 }
 

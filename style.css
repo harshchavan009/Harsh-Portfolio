@@ -265,3 +265,10 @@ textarea:focus-visible {
     opacity: 0;
   }
 }
+
+/* Photo Sweep Scanner laser line animation */
+@keyframes scan-line {
+  0% { top: 4%; }
+  50% { top: 96%; }
+  100% { top: 4%; }
+}
