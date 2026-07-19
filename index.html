@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,798 +7,481 @@
   <meta name="description" content="Portfolio of Harsh Chavan, AI/ML & Generative AI Systems Engineer. Specializing in RAG, Multi-Agent Systems, and Industrial Automation (PLC Ladder Logic).">
   <meta name="keywords" content="Harsh Chavan, AI Engineer, Generative AI, LLM, PLC, Siemens, Ladder Logic, LangGraph, RAG">
   
-  <!-- Preconnect & Load Custom Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Space+Grotesk:wght@300..700&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-
-  <!-- Local Custom Stylesheet -->
+  <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="style.css">
-
-  <!-- Tailwind CSS v4 Browser Compiler -->
-  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  
+  <!-- ThreeJS library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body class="bg-bg-dark text-text-ivory selection:bg-brass-accent/20 selection:text-text-ivory">
+<body class="dark">
 
-  <!-- Drifting Saturated Background Gradient Blobs -->
-  <div class="bg-glow-1"></div>
-  <div class="bg-glow-2"></div>
-  <div class="bg-glow-3"></div>
-
-  <!-- Grid Blueprint Background -->
-  <div class="schematic-bg"></div>
-  <div class="schematic-overlay"></div>
-
-  <!-- Vertical Scroll schematic rail line -->
-  <div class="hidden xl:block fixed left-10 top-0 bottom-0 w-[1px] bg-border-dark/60 z-30 pointer-events-none">
-    <div id="schematic-tracker-dot" class="absolute left-[-3px] w-1.5 h-1.5 rounded-full bg-brass-accent shadow-[0_0_8px_#C69749] transition-all duration-100" style="top: 0%"></div>
-  </div>
+  <!-- ThreeJS Canvas Background container -->
+  <div id="three-canvas-container"></div>
 
   <!-- Header Navigation -->
-  <header class="fixed top-0 left-0 right-0 z-50 py-5 bg-bg-dark/70 backdrop-blur-md border-b border-border-dark/50">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-      <a href="#" class="font-mono font-bold tracking-tight text-text-ivory hover:text-brass-accent transition-colors">
-        H.CHAVAN<span class="text-brass-accent font-sans">_</span>SYS
-      </a>
-      
-      <!-- Nav Menu (IBM Plex Mono) -->
-      <nav class="hidden md:flex items-center gap-8 font-mono text-[11px] uppercase tracking-widest text-text-slate">
-        <a href="#about" class="hover:text-brass-accent transition-colors">01// ABOUT</a>
-        <a href="#experience" class="hover:text-brass-accent transition-colors">02// JOURNEY</a>
-        <a href="#projects" class="hover:text-brass-accent transition-colors">03// PROJECTS</a>
-        <a href="#skills" class="hover:text-brass-accent transition-colors">04// SKILLS</a>
-        <a href="#leetcode" class="hover:text-brass-accent transition-colors">05// STATS</a>
-        <a href="#contact" class="hover:text-brass-accent transition-colors">06// CONNECT</a>
-      </nav>
-
-      <a href="resume.pdf" download class="font-mono text-[11px] uppercase tracking-widest px-4 py-2 border border-brass-accent/30 hover:border-brass-accent text-brass-accent hover:bg-brass-accent/5 rounded transition-all">
-        SYS.CV
-      </a>
+  <nav class="nav">
+    <div class="nav-l" onclick="scrollToSection('home')">
+      <div class="nav-nm">Harsh Chavan</div>
     </div>
-  </header>
+    
+    <div class="nav-center">
+      <button class="nav-a on" onclick="scrollToSection('home')">Home</button>
+      <button class="nav-a" onclick="scrollToSection('about')">About</button>
+      <button class="nav-a" onclick="scrollToSection('ventures')">Work</button>
+      <button class="nav-a" onclick="scrollToSection('projects')">Projects</button>
+      <button class="nav-a" onclick="scrollToSection('experience')">Journey</button>
+      <button class="nav-a" onclick="scrollToSection('contact')">Contact</button>
+    </div>
 
-  <!-- 1. Hero Section -->
-  <section class="relative min-h-screen flex items-center justify-center pt-24 px-6 relative overflow-hidden">
-    <!-- Three.js Canvas sits fixed in the page background -->
-    <div id="three-canvas-container" class="fixed inset-0 z-[-10] opacity-60 pointer-events-none"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-bg-dark via-transparent to-bg-dark/30 z-1 pointer-events-none"></div>
+    <div class="nav-r">
+      <button id="theme-toggle" class="theme-toggle" title="Toggle theme">☀️</button>
+      <button id="hamburger" class="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
 
-    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-      <div class="lg:col-span-8 flex flex-col items-start">
-        
-        <!-- System Identifier (IBM Plex Mono) -->
-        <div class="font-mono text-xs text-brass-accent uppercase tracking-widest mb-4 flex items-center gap-2">
-          <span class="inline-block w-1.5 h-1.5 bg-brass-accent animate-pulse-slow"></span>
-          SYS_STATUS // ACTIVE_DEVELOPER
+  <!-- Mobile navigation drawer -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <button class="nav-a on" onclick="scrollToSection('home')">Home</button>
+    <button class="nav-a" onclick="scrollToSection('about')">About</button>
+    <button class="nav-a" onclick="scrollToSection('ventures')">Work</button>
+    <button class="nav-a" onclick="scrollToSection('projects')">Projects</button>
+    <button class="nav-a" onclick="scrollToSection('experience')">Journey</button>
+    <button class="nav-a" onclick="scrollToSection('contact')">Contact</button>
+  </div>
+
+  <!-- Hero Section -->
+  <section id="home" class="sec hero">
+    <div class="hero-left">
+      <div class="h-label">AI ENGINEER // SYSTEM GENERATION</div>
+      <h1 class="h-title">
+        I build systems that bridge the gap between <em>deterministic automation</em> and <em>semantic AI</em>.
+      </h1>
+      <p class="h-sub">
+        B.Tech CSE (AI & ML) student at Parul University, designing prompt compilers, multi-agent orchestrations, and industrial-grade LLM pipelines.
+      </p>
+      
+      <div class="h-row">
+        <button class="h-cta" onclick="scrollToSection('contact')">Get in touch</button>
+        <button class="h-cta-sec" onclick="scrollToSection('ventures')">See my work</button>
+      </div>
+
+      <div class="h-stats">
+        <div>
+          <div class="hs-v">3+</div>
+          <div class="hs-l">Projects Shipped</div>
         </div>
-
-        <!-- Name (Space Grotesk geometric) -->
-        <h1 class="text-5xl md:text-7xl font-serif font-semibold tracking-tight bg-gradient-to-r from-text-ivory via-text-ivory to-brass-accent bg-clip-text text-transparent mb-6">
-          Harsh Chavan
-        </h1>
-
-        <!-- Role description -->
-        <h2 class="font-mono text-xs md:text-sm text-text-slate uppercase tracking-widest mb-6 flex flex-wrap gap-x-3 gap-y-1 border-l-2 border-brass-accent/40 pl-4">
-          <span>AI / GenAI Engineer</span>
-          <span class="text-brass-accent/30">•</span>
-          <span>LLM & Prompt Engineering</span>
-          <span class="text-brass-accent/30">•</span>
-          <span>Industrial AI Systems</span>
-        </h2>
-
-        <!-- Duality positioning statement -->
-        <p class="font-sans text-base md:text-lg text-text-slate max-w-xl mb-10 leading-relaxed">
-          "I bridge the gap between deterministic automation and semantic reasoning. I apply LLMs and multi-agent loops to industrial logic generation, replacing rigid workflows with flexible, self-optimizing software frameworks."
-        </p>
-
-        <!-- CTAs -->
-        <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-          <a href="#projects" class="px-7 py-3 bg-brass-accent hover:bg-brass-accent/90 text-bg-dark font-mono text-xs uppercase tracking-widest font-bold rounded transition-all duration-300 flex items-center justify-center gap-2">
-            View Work
-            <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-          </a>
-          <a href="#contact" class="px-7 py-3 border border-border-dark bg-card-dark/40 hover:border-brass-accent/50 text-text-ivory font-mono text-xs uppercase tracking-widest rounded transition-all flex items-center justify-center">
-            Connect
-          </a>
+        <div>
+          <div class="hs-v">9.02</div>
+          <div class="hs-l">CGPA (CS/AI)</div>
         </div>
-
-        <!-- Diagnostics Sub-grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full mt-12 border-t border-border-dark/40 pt-8">
-          <div class="font-mono">
-            <div class="text-[9px] text-text-slate uppercase tracking-wider">SYS_STATUS</div>
-            <div class="text-xs text-emerald-400 font-bold flex items-center gap-1.5 mt-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              NOMINAL
-            </div>
-          </div>
-          <div class="font-mono">
-            <div class="text-[9px] text-text-slate uppercase tracking-wider">AGENT_PIPELINE</div>
-            <div class="text-xs text-text-ivory font-bold mt-1">ACTIVE (byLLM)</div>
-          </div>
-          <div class="font-mono">
-            <div class="text-[9px] text-text-slate uppercase tracking-wider">NET_LATENCY</div>
-            <div class="text-xs text-text-ivory font-bold mt-1">12.4ms (avg)</div>
-          </div>
-          <div class="font-mono">
-            <div class="text-[9px] text-text-slate uppercase tracking-wider">GEOGRAPHY</div>
-            <div class="text-xs text-brass-accent font-bold mt-1">VDD_GUJ // IN</div>
-          </div>
+        <div>
+          <div class="hs-v">350+</div>
+          <div class="hs-l">LeetCode Solved</div>
+        </div>
+        <div>
+          <div class="hs-v">1</div>
+          <div class="hs-l">Industrial Intern</div>
         </div>
       </div>
-      <!-- Right Dashboard Panel: Interactive Terminal -->
-      <!-- Right Dashboard Panel: HUD Portrait Scanner Card -->
-      <div class="lg:col-span-4 flex flex-col items-stretch z-10">
-        <div class="corner-frame p-4 bg-card-dark/65 border border-brass-accent/30 rounded shadow-2xl relative overflow-hidden group">
-          <div class="corner-frame-inner"></div>
-          
-          <!-- Diagnostic Sweep Laser Line -->
-          <div class="absolute left-0 right-0 h-[1.5px] bg-cyan-400 shadow-[0_0_10px_#22D3EE] z-20 pointer-events-none animate-scan-fast" style="animation: scan-line 5s linear infinite;"></div>
-          
-          <!-- Tech scope overlays -->
-          <div class="absolute inset-4 border border-border-dark/30 pointer-events-none rounded z-10"></div>
-          <div class="absolute top-2 right-3 font-mono text-[8px] text-brass-accent/60 tracking-widest pointer-events-none">SYS_SCAN // 04</div>
-          <div class="absolute bottom-2 left-3 font-mono text-[8px] text-cyan-glow/60 tracking-widest pointer-events-none">SYS_PORTRAIT_SCANNER</div>
+    </div>
 
-          <!-- Portrait Frame -->
-          <div class="relative w-full aspect-square overflow-hidden rounded border border-border-dark bg-bg-dark/40 mb-4">
-            <img src="profile.png" alt="Harsh Chavan" class="w-full h-full object-cover grayscale contrast-125 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
-            
-            <!-- Target scope circles -->
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity">
-              <div class="w-3/4 h-3/4 border border-dashed border-brass-accent rounded-full animate-[spin_40s_linear_infinite]"></div>
-              <div class="w-1/2 h-1/2 border border-dashed border-cyan-glow rounded-full animate-[spin_20s_linear_infinite_reverse]"></div>
-            </div>
-          </div>
-
-          <!-- Animated HUD Wave Telemetry -->
-          <div class="border-t border-border-dark/60 pt-3 flex flex-col gap-2">
-            <div class="flex justify-between items-center font-mono text-[9px] text-text-slate">
-              <span>SYS_TELEMETRY:</span>
-              <span class="text-brass-accent animate-pulse">ACTIVE_WAVE</span>
-            </div>
-            <div class="w-full h-10 bg-bg-dark/50 border border-border-dark/40 rounded overflow-hidden">
-              <canvas id="hud-wave-canvas" class="w-full h-full"></canvas>
-            </div>
-          </div>
-        </div>
+    <div class="hero-right">
+      <div class="hero-photo">
+        <img src="profile.png" alt="Harsh Chavan">
+      </div>
+      <div class="hero-socials">
+        <a class="social-link" href="https://github.com/harshchavan009" target="_blank" rel="noopener noreferrer" title="GitHub">GitHub</a>
+        <a class="social-link" href="https://www.linkedin.com/in/harsh-chavan-5804a5344/" target="_blank" rel="noopener noreferrer" title="LinkedIn">LinkedIn</a>
+        <a class="social-link" href="https://leetcode.com/u/ChavanHarshSantosh/" target="_blank" rel="noopener noreferrer" title="LeetCode">LeetCode</a>
       </div>
     </div>
   </section>
 
-  <!-- Divider -->
-  <div class="divider-hairline"></div>
+  <div class="rule"></div>
 
-  <!-- 2. About Me Section -->
-  <section id="about" class="py-24 px-6 max-w-7xl mx-auto reveal-on-scroll">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-      
-      <!-- Left side: Hybrid Engineering Schematic Drawing -->
-      <div class="lg:col-span-5 flex justify-center lg:justify-start w-full">
-        <div class="corner-frame p-6 bg-card-dark/40 border border-border-dark/60 rounded w-full h-[280px] flex items-center justify-center relative overflow-hidden group">
-          <div class="corner-frame-inner"></div>
-          
-          <!-- Background Grid lines -->
-          <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(198,151,73,0.06)_0%,transparent_70%)]"></div>
-          
-          <!-- SVG Schematic -->
-          <svg class="w-full h-full max-w-[260px] text-brass-accent/60 opacity-80" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8">
-            <!-- Grid Lines -->
-            <line x1="10" y1="50" x2="90" y2="50" stroke-dasharray="1,2" />
-            <line x1="50" y1="10" x2="50" y2="90" stroke-dasharray="1,2" />
-            
-            <!-- Siemens PLC Ladder rung elements -->
-            <path d="M 10 30 L 30 30 M 30 25 L 30 35 M 35 25 L 35 35 M 35 30 L 65 30" />
-            <rect x="65" y="25" width="10" height="10" rx="1" stroke-dasharray="2,1" />
-            <text x="70" y="32" font-family="monospace" font-size="5" fill="currentColor" stroke="none">Q0.1</text>
-            
-            <!-- Connecting bridge -->
-            <path d="M 50 30 C 50 45, 30 55, 30 70" stroke-dasharray="2,2" stroke="#22D3EE" stroke-width="0.5" />
-            
-            <!-- Neural network cluster -->
-            <circle cx="30" cy="70" r="2.5" fill="#C69749" />
-            <circle cx="50" cy="70" r="2.5" fill="#22D3EE" />
-            <circle cx="70" cy="70" r="2.5" fill="#C69749" />
-            
-            <circle cx="40" cy="85" r="2.5" fill="#C69749" />
-            <circle cx="60" cy="85" r="2.5" fill="#22D3EE" />
-            
-            <line x1="30" y1="70" x2="40" y2="85" />
-            <line x1="50" y1="70" x2="40" y2="85" />
-            <line x1="50" y1="70" x2="60" y2="85" />
-            <line x1="70" y1="70" x2="60" y2="85" />
-            
-            <!-- Labels -->
-            <text x="12" y="22" font-family="monospace" font-size="4" fill="currentColor" stroke="none">SYS_LADDER_LOGIC</text>
-            <text x="12" y="93" font-family="monospace" font-size="4" fill="#22D3EE" stroke="none">NEURAL_DECODER</text>
-          </svg>
-          
-          <div class="absolute bottom-2 right-3 font-mono text-[7px] text-text-slate uppercase tracking-wider">SCHEMATIC_REF_01 // PLC_TO_AI</div>
-        </div>
-      </div>
-
-      <!-- Right side: Bio & Quick Facts -->
-      <div class="lg:col-span-7 flex flex-col justify-between">
-        <div>
-          <!-- Eyebrow -->
-          <div class="font-mono text-[10px] tracking-widest text-brass-accent uppercase mb-2">01 // CONTEXT</div>
-          <h2 class="text-3xl md:text-4xl font-serif font-light text-text-ivory mb-6">About Me</h2>
-          
-          <div class="font-sans text-text-slate text-sm leading-relaxed space-y-4 mb-8">
-            <p>
-              I build scalable, production-ready Generative AI and LLM systems. My work focuses on structured prompt pipelines, RAG systems, and multi-agent loop orchestrations.
-            </p>
-            <p>
-              My foundation lies at the intersection of traditional logic architecture and natural language representation. By importing Siemens PLC pseudo-code systems and mapping them dynamically into semantic structures using byLLM, I create robust AI tools that operate with absolute deterministic precision.
-            </p>
-          </div>
-        </div>
-
-        <!-- Facts Box (IBM Plex Mono) -->
-        <div class="p-6 bg-card-dark/30 border border-border-dark/40 rounded font-mono text-xs text-text-slate space-y-3">
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 border-b border-border-dark/30 pb-2">
-            <span class="sm:col-span-4 text-brass-accent">ACADEMIC:</span>
-            <span class="sm:col-span-8 text-text-ivory">B.Tech in CSE (AI & ML)</span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 border-b border-border-dark/30 pb-2">
-            <span class="sm:col-span-4 text-brass-accent">INSTITUTION:</span>
-            <span class="sm:col-span-8 text-text-ivory">Parul University, Gujarat</span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 border-b border-border-dark/30 pb-2">
-            <span class="sm:col-span-4 text-brass-accent">TIMELINE:</span>
-            <span class="sm:col-span-8 text-text-ivory">Aug 2024 – May 2028</span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-12 gap-2">
-            <span class="sm:col-span-4 text-brass-accent">GEOGRAPHY:</span>
-            <span class="sm:col-span-8 text-text-ivory">Vadodara, Gujarat, India</span>
-          </div>
-        </div>
-      </div>
+  <!-- About Section -->
+  <section id="about" class="sec reveal-on-scroll">
+    <div class="sh">
+      <div class="sh-label">About</div>
+      <h2 class="sh-title">Specialist engineer combining <em>generative AI</em> with <em>industrial systems</em></h2>
     </div>
-  </section>
-
-  <!-- Divider -->
-  <div class="divider-hairline"></div>
-
-  <!-- 3. Experience Section -->
-  <section id="experience" class="py-24 px-6 max-w-7xl mx-auto reveal-on-scroll">
-    <div class="font-mono text-[10px] tracking-widest text-brass-accent uppercase mb-2">02 // TIMELINE</div>
-    <h2 class="text-3xl md:text-4xl font-serif font-light text-text-ivory mb-16">Work Experience</h2>
-
-    <!-- Timeline block -->
-    <div class="relative pl-8 md:pl-16 border-l border-border-dark/80 max-w-4xl mx-auto">
-      
-      <!-- Bullet node -->
-      <div class="absolute -left-[6px] top-1.5 w-3 h-3 rounded-full bg-bg-dark border border-brass-accent flex items-center justify-center">
-        <div class="w-1 h-1 rounded-full bg-brass-accent"></div>
+    
+    <div class="about-split">
+      <div class="about-img">
+        <!-- SVG Vector Schematic plc-to-ai -->
+        <svg class="w-full h-full text-text2" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="0.8">
+          <!-- Grid Lines -->
+          <line x1="10" y1="50" x2="90" y2="50" stroke-dasharray="1,2" stroke="var(--text3)"/>
+          <line x1="50" y1="10" x2="50" y2="90" stroke-dasharray="1,2" stroke="var(--text3)"/>
+          
+          <!-- Siemens PLC Ladder rung elements -->
+          <path d="M 10 30 L 30 30 M 30 25 L 30 35 M 35 25 L 35 35 M 35 30 L 65 30" />
+          <rect x="65" y="25" width="10" height="10" rx="1" stroke-dasharray="2,1" />
+          <text x="69" y="32" font-family="monospace" font-size="5" fill="currentColor" stroke="none">Q0.1</text>
+          
+          <!-- Connecting bridge -->
+          <path d="M 50 30 C 50 45, 30 55, 30 70" stroke-dasharray="2,2" stroke="var(--red)" stroke-width="0.5" />
+          
+          <!-- Neural network cluster -->
+          <circle cx="30" cy="70" r="2.5" fill="var(--red)" stroke="none"/>
+          <circle cx="50" cy="70" r="2.5" fill="currentColor" stroke="none"/>
+          <circle cx="70" cy="70" r="2.5" fill="var(--red)" stroke="none"/>
+          <circle cx="40" cy="85" r="2.5" fill="var(--red)" stroke="none"/>
+          <circle cx="60" cy="85" r="2.5" fill="currentColor" stroke="none"/>
+          
+          <line x1="30" y1="70" x2="40" y2="85" />
+          <line x1="50" y1="70" x2="40" y2="85" />
+          <line x1="50" y1="70" x2="60" y2="85" />
+          <line x1="70" y1="70" x2="60" y2="85" />
+          
+          <!-- Labels -->
+          <text x="12" y="22" font-family="monospace" font-size="4" fill="currentColor" stroke="none">SYS_LADDER_LOGIC</text>
+          <text x="12" y="93" font-family="monospace" font-size="4" fill="var(--red)" stroke="none">NEURAL_DECODER</text>
+        </svg>
       </div>
 
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-6">
-        <div>
-          <h3 class="text-lg font-sans font-bold text-text-ivory">Generative AI Intern</h3>
-          <p class="text-xs font-mono text-brass-accent mt-0.5">Wipro PARI (Robotics And Private Limited)</p>
-        </div>
-        <div class="font-mono text-[11px] text-text-slate flex flex-col md:items-end">
-          <span>May 2026 – July 2026</span>
-          <span class="text-[10px]">Pune, Maharashtra</span>
-        </div>
-      </div>
-
-      <!-- Experience highlights -->
-      <ul class="space-y-4 font-sans text-text-slate text-sm leading-relaxed mb-6">
-        <li class="flex items-start gap-3">
-          <svg class="w-4 h-4 text-brass-accent mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-          <span>Developed a model-agnostic AI solution using <strong>byLLM</strong> and meaning-typed prompt frameworks to automate Siemens S7-1500 PLC Ladder Logic (LAD) generation from structured pseudo code.</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg class="w-4 h-4 text-brass-accent mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-          <span>Designed reusable prompt engineering frameworks enabling consistent, high-quality output across GPT, Claude, and Gemini.</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg class="w-4 h-4 text-brass-accent mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-          <span>Implemented Python-based evaluation and benchmarking pipelines to analyze model generation quality.</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg class="w-4 h-4 text-brass-accent mt-1 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-          <span>Architected scalable AI workflows for industrial automation (LLM orchestration + prompt optimization + automated validation).</span>
-        </li>
-      </ul>
-      
-      <!-- Tech badges -->
-      <div class="flex flex-wrap gap-2 pt-2">
-        <span class="px-2 py-0.5 rounded border border-border-dark bg-card-dark/30 text-[10px] font-mono text-text-slate">Python</span>
-        <span class="px-2 py-0.5 rounded border border-border-dark bg-card-dark/30 text-[10px] font-mono text-text-slate">byLLM</span>
-        <span class="px-2 py-0.5 rounded border border-border-dark bg-card-dark/30 text-[10px] font-mono text-text-slate">Prompt Engineering</span>
-        <span class="px-2 py-0.5 rounded border border-border-dark bg-card-dark/30 text-[10px] font-mono text-text-slate">LLMs</span>
-        <span class="px-2 py-0.5 rounded border border-border-dark bg-card-dark/30 text-[10px] font-mono text-text-slate">Siemens PLC</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Divider -->
-  <div class="divider-hairline"></div>
-
-  <!-- 4. Curated Featured Projects Section -->
-  <section id="projects" class="py-24 px-6 max-w-7xl mx-auto reveal-on-scroll">
-    <div class="font-mono text-[10px] tracking-widest text-brass-accent uppercase mb-2">03 // PORTFOLIO</div>
-    <h2 class="text-3xl md:text-4xl font-serif font-light text-text-ivory mb-16">Featured Curated Projects</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 tilt-card-container">
-      
-      <!-- Project 1 -->
-      <div class="tilt-card glass-panel p-6 rounded flex flex-col justify-between h-[370px] transition-all">
-        <div>
-          <div class="flex justify-between items-start mb-4">
-            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-500 animate-pulse"></span>
-              SYSTEM ARCHITECTURE
-            </span>
-            <svg class="w-4 h-4 text-text-slate" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          </div>
-          <h3 class="text-md font-sans font-bold text-text-ivory mb-3 hover:text-brass-accent transition-colors">Enterprise Multi-Agent Graph RAG System</h3>
-          <p class="text-xs text-text-slate leading-relaxed mb-6 font-sans">
-            Enterprise-grade multi-agent RAG platform for intelligent document retrieval and context-aware reasoning. Employs scalable agent orchestration, vector search, and knowledge-graph-backed semantic search.
+      <div>
+        <div class="about-p">
+          <p>
+            I design and build production-ready Generative AI systems. My experience ranges from structured prompt pipelines and RAG architectures to complex multi-agent loop orchestrations.
+          </p>
+          <p>
+            My strength is bridging the gap between traditional logic frameworks and natural language representation. During my time in Wipro PARI, I engineered prompt pipelines that automatically translate PLC pseudo-code systems into Siemens S7-1500 Ladder Logic, replacing manual overhead with robust, deterministic compiler code.
+          </p>
+          <p>
+            <strong>Education:</strong> B.Tech in Computer Science and Engineering, specializing in Artificial Intelligence and Machine Learning, at Parul University, Vadodara, Gujarat (August 2024 – May 2028).
           </p>
         </div>
-        <div>
-          <div class="flex flex-wrap gap-1.5 mb-4 max-h-[50px] overflow-hidden">
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">LangGraph</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">Neo4j</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">FastAPI</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">Docker</span>
-          </div>
-          <a href="https://github.com/harshchavan009" target="_blank" rel="noopener noreferrer" class="font-mono text-[10px] text-brass-accent hover:text-text-ivory transition-colors uppercase tracking-widest flex items-center gap-1.5">
-            SYS_VIEW // REPO
-          </a>
+        
+        <div class="about-logos">
+          <span class="about-logo">Python</span>
+          <span class="about-logo">Java</span>
+          <span class="about-logo">C/C++</span>
+          <span class="about-logo">byLLM</span>
+          <span class="about-logo">LangGraph</span>
+          <span class="about-logo">Siemens PLC</span>
+          <span class="about-logo">Docker</span>
+          <span class="about-logo">Azure</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Bleed Banner -->
+  <div class="bleed">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg, #0e0e11 0%, #1c1c28 50%, #0b0b0e 100%)"></div>
+    <div class="bleed-text">
+      <div class="bleed-sm">SYS_BRIDGE // INDUSTRIAL_AI</div>
+      <div class="bleed-big">"Bridging the gap between deterministic automation and semantic reasoning."</div>
+    </div>
+  </div>
+
+  <!-- Ventures/Work Section -->
+  <section id="ventures" class="sec reveal-on-scroll">
+    <div class="sh">
+      <div class="sh-label">Work</div>
+      <h2 class="sh-title">Experience I've <em>shaped</em></h2>
+    </div>
+
+    <div class="ven-grid">
+      <!-- Venture Card 1: Wipro PARI -->
+      <div class="ven-card" onclick="openVentureModal()">
+        <div class="ven-bg" style="background:linear-gradient(135deg, #1f1118 0%, #0d060a 100%)">
+          <!-- Geometric background shape -->
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.06;z-index:0">
+            <svg width="180" height="180" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="0.8">
+              <circle cx="50" cy="50" r="35" />
+              <circle cx="50" cy="50" r="25" />
+              <line x1="15" y1="50" x2="85" y2="50" />
+              <line x1="50" y1="15" x2="50" y2="85" />
+            </svg>
+          </div>
+        </div>
+        
+        <div class="ven-overlay">
+          <div class="ven-otag">INDUSTRIAL AI · MAY – JULY 2026</div>
+          <div class="ven-oname">Wipro PARI</div>
+          <div class="ven-oline">Automated Siemens PLC S7-1500 Ladder Logic generation from structured specifications via byLLM prompt frameworks.</div>
+          
+          <div class="ven-bottom">
+            <div class="ven-oarrow">View details →</div>
+            <a class="ven-ext" href="https://pari.wipro.com/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">wipro.pari.com ↗</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Placeholder card to maintain design layout grid balance -->
+      <div class="ven-card" style="cursor:default">
+        <div class="ven-bg" style="background:linear-gradient(135deg, #0e121a 0%, #06080d 100%)">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.04;z-index:0">
+            <svg width="160" height="160" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="0.8">
+              <rect x="25" y="25" width="50" height="50" rx="4" />
+              <line x1="25" y1="25" x2="75" y2="75" />
+              <line x1="75" y1="25" x2="25" y2="75" />
+            </svg>
+          </div>
+        </div>
+        <div class="ven-overlay">
+          <div class="ven-otag">SYSTEM METRICS // ALL SECURE</div>
+          <div class="ven-oname">Future Systems</div>
+          <div class="ven-oline">Researching scalable multi-agent systems and semantic compilers for real-world deployments.</div>
+          <div class="ven-bottom">
+            <div class="ven-oarrow" style="opacity:0.3">Active development</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- Projects Section -->
+  <section id="projects" class="sec-sm reveal-on-scroll">
+    <div class="sh">
+      <div class="sh-label">Open Source</div>
+      <h2 class="sh-title">Featured <em>projects</em></h2>
+    </div>
+
+    <!-- Static curated project cards followed by live repositories -->
+    <div class="proj-grid">
+      <!-- Project 1 -->
+      <a class="proj-card" href="https://github.com/harshchavan009" target="_blank" rel="noopener noreferrer">
+        <div class="proj-top">
+          <svg class="proj-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 7V17a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+          </svg>
+          <div class="proj-stars">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Active
+          </div>
+        </div>
+        <div class="proj-name">Enterprise Graph RAG</div>
+        <div class="proj-desc">Enterprise-grade multi-agent RAG platform combining LangGraph and Neo4j for semantic document reasoning.</div>
+        <div class="proj-footer">
+          <span class="proj-tech">LangGraph · Neo4j</span>
+          <span class="proj-link">View Repo ↗</span>
+        </div>
+      </a>
 
       <!-- Project 2 -->
-      <div class="tilt-card glass-panel p-6 rounded flex flex-col justify-between h-[370px] transition-all">
-        <div>
-          <div class="flex justify-between items-start mb-4">
-            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-cyan-400 animate-pulse"></span>
-              COMPILER ENGINE
-            </span>
-            <svg class="w-4 h-4 text-text-slate" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+      <a class="proj-card" href="https://github.com/harshchavan009" target="_blank" rel="noopener noreferrer">
+        <div class="proj-top">
+          <svg class="proj-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 7V17a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+          </svg>
+          <div class="proj-stars">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Active
           </div>
-          <h3 class="text-md font-sans font-bold text-text-ivory mb-3 hover:text-brass-accent transition-colors">Model-Agnostic AI-Integrated PLC Prompt Engineering</h3>
-          <p class="text-xs text-text-slate leading-relaxed mb-6 font-sans">
-            A framework using byLLM to automate Siemens S7-1500 Ladder Logic generation from structured pseudo code. Integrates meaning-typed prompt strategies enabling consistent cross-model code generation.
-          </p>
         </div>
-        <div>
-          <div class="flex flex-wrap gap-1.5 mb-4 max-h-[50px] overflow-hidden">
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">Python</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">byLLM</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">GPT-4/Claude</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">PLC LAD</span>
-          </div>
-          <a href="https://github.com/harshchavan009" target="_blank" rel="noopener noreferrer" class="font-mono text-[10px] text-brass-accent hover:text-text-ivory transition-colors uppercase tracking-widest flex items-center gap-1.5">
-            SYS_VIEW // REPO
-          </a>
+        <div class="proj-name">PLC Prompt Compiler</div>
+        <div class="proj-desc">A compiler logic generator converting natural language statements into Siemens S7-1500 LAD structures using byLLM.</div>
+        <div class="proj-footer">
+          <span class="proj-tech">Python · byLLM</span>
+          <span class="proj-link">View Repo ↗</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Live github loader wrapper -->
+    <div id="github-repo-grid" class="proj-grid" style="margin-top: 12px;">
+      <!-- Skeletons rendered initially, replaced by JavaScript -->
+      <div class="proj-card animate-pulse-slow">
+        <div class="proj-top">
+          <div style="width:20px;height:20px;background:var(--bg3);border-radius:2px"></div>
+        </div>
+        <div style="width:60%;height:18px;background:var(--bg3);margin:12px 0 8px;border-radius:2px"></div>
+        <div style="width:90%;height:12px;background:var(--bg3);margin-bottom:6px;border-radius:2px"></div>
+        <div style="width:75%;height:12px;background:var(--bg3);margin-bottom:18px;border-radius:2px"></div>
+        <div class="proj-footer">
+          <div style="width:30%;height:10px;background:var(--bg3);border-radius:2px"></div>
         </div>
       </div>
-
-      <!-- Project 3 -->
-      <div class="tilt-card glass-panel p-6 rounded flex flex-col justify-between h-[370px] transition-all">
-        <div>
-          <div class="flex justify-between items-start mb-4">
-            <span class="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5 rounded border border-brass-accent/20 text-brass-accent flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-rose-500 animate-pulse"></span>
-              COMPUTER VISION
-            </span>
-            <svg class="w-4 h-4 text-text-slate" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-          </div>
-          <h3 class="text-md font-sans font-bold text-text-ivory mb-3 hover:text-brass-accent transition-colors">EcoVision AI — Smart Waste Management Ecosystem</h3>
-          <p class="text-xs text-text-slate leading-relaxed mb-6 font-sans">
-            Computer-vision-powered platform for automated waste detection and classification. Employs deep learning models with real-time analytics monitoring dashboards, containerized with Docker.
-          </p>
+      <div class="proj-card animate-pulse-slow">
+        <div class="proj-top">
+          <div style="width:20px;height:20px;background:var(--bg3);border-radius:2px"></div>
         </div>
-        <div>
-          <div class="flex flex-wrap gap-1.5 mb-4 max-h-[50px] overflow-hidden">
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">TensorFlow</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">OpenCV</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">React</span>
-            <span class="px-1.5 py-0.5 bg-bg-dark border border-border-dark rounded text-[9px] font-mono text-text-slate">Docker</span>
-          </div>
-          <a href="https://github.com/harshchavan009" target="_blank" rel="noopener noreferrer" class="font-mono text-[10px] text-brass-accent hover:text-text-ivory transition-colors uppercase tracking-widest flex items-center gap-1.5">
-            SYS_VIEW // REPO
-          </a>
+        <div style="width:60%;height:18px;background:var(--bg3);margin:12px 0 8px;border-radius:2px"></div>
+        <div style="width:90%;height:12px;background:var(--bg3);margin-bottom:6px;border-radius:2px"></div>
+        <div style="width:75%;height:12px;background:var(--bg3);margin-bottom:18px;border-radius:2px"></div>
+        <div class="proj-footer">
+          <div style="width:30%;height:10px;background:var(--bg3);border-radius:2px"></div>
         </div>
       </div>
+    </div>
 
+    <div class="proj-gh-bar">
+      <a class="proj-gh-btn" href="https://github.com/harshchavan009" target="_blank" rel="noopener noreferrer">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        View all repositories
+      </a>
     </div>
   </section>
 
-  <!-- 5. Live from GitHub Section -->
-  <section class="py-24 px-6 max-w-7xl mx-auto reveal-on-scroll">
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-16">
+  <div class="rule"></div>
+
+  <!-- Journey Timeline Section -->
+  <section id="experience" class="sec-sm reveal-on-scroll">
+    <div class="sh">
+      <div class="sh-label">Experience</div>
+      <h2 class="sh-title">The horizontal <em>journey</em></h2>
+    </div>
+
+    <div class="road-wrap">
+      <div class="road">
+        <!-- Item 1: Parul -->
+        <div class="road-item">
+          <div class="road-dot"></div>
+          <div class="road-year">2024–28</div>
+          <div class="road-title">B.Tech CSE (AI & ML)</div>
+          <div class="road-co">Parul University, Vadodara</div>
+          <div class="road-detail">Specialized coursework in deep learning, natural language structures, prompt compiler systems, and graph architectures.</div>
+        </div>
+
+        <!-- Item 2: Wipro PARI -->
+        <div class="road-item">
+          <div class="road-dot"></div>
+          <div class="road-year">May – July 2026</div>
+          <div class="road-title">GenAI Developer Intern</div>
+          <div class="road-co">Wipro PARI, Pune</div>
+          <div class="road-detail">Engineered model-agnostic AI pipelines with byLLM to compile Siemens S7-1500 Ladder Logic directly from pseudo-code.</div>
+        </div>
+
+        <!-- Item 3: Secondary School -->
+        <div class="road-item">
+          <div class="road-dot"></div>
+          <div class="road-year">2022–24</div>
+          <div class="road-title">Science Graduate</div>
+          <div class="road-co">Science Board, Vadodara</div>
+          <div class="road-detail">Advanced instruction in mathematics, computer sciences, logical computation, and physics.</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="road-hint">Hover over timeline nodes to reveal journey highlights</div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="sec reveal-on-scroll">
+    <div class="sh">
+      <div class="sh-label">Contact</div>
+      <h2 class="sh-title">Let's <em>talk</em></h2>
+    </div>
+
+    <div class="ct-grid">
       <div>
-        <div class="font-mono text-[10px] tracking-widest text-brass-accent uppercase mb-2">03 // DYNAMIC</div>
-        <h2 class="text-3xl md:text-4xl font-serif font-light text-text-ivory">Live from GitHub</h2>
-      </div>
-      <!-- Auto-updated indicator tag -->
-      <div class="inline-flex items-center gap-2 px-3 py-1 border border-border-dark bg-card-dark/30 rounded font-mono text-[10px] text-text-slate shrink-0">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-        SYNCED_AUTOMATICALLY
-      </div>
-    </div>
-
-    <!-- Repository grid container -->
-    <div id="github-repo-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Loading Skeletons (rendered dynamic by script) -->
-      <div class="h-[220px] bg-card-dark/20 border border-border-dark/50 p-6 rounded animate-pulse-slow flex flex-col justify-between">
-        <div>
-          <div class="w-20 h-3 bg-border-dark rounded mb-4"></div>
-          <div class="w-40 h-5 bg-border-dark rounded mb-3"></div>
-          <div class="w-full h-3 bg-border-dark rounded mb-2"></div>
-          <div class="w-5/6 h-3 bg-border-dark rounded"></div>
+        <div class="ct-badge">
+          <span class="ct-dot"></span> OPEN FOR NEW OPPORTUNITIES
         </div>
-        <div class="w-24 h-4 bg-border-dark rounded"></div>
-      </div>
-      <div class="h-[220px] bg-card-dark/20 border border-border-dark/50 p-6 rounded animate-pulse-slow flex flex-col justify-between">
-        <div>
-          <div class="w-20 h-3 bg-border-dark rounded mb-4"></div>
-          <div class="w-40 h-5 bg-border-dark rounded mb-3"></div>
-          <div class="w-full h-3 bg-border-dark rounded mb-2"></div>
-          <div class="w-5/6 h-3 bg-border-dark rounded"></div>
-        </div>
-        <div class="w-24 h-4 bg-border-dark rounded"></div>
-      </div>
-      <div class="h-[220px] bg-card-dark/20 border border-border-dark/50 p-6 rounded animate-pulse-slow flex flex-col justify-between">
-        <div>
-          <div class="w-20 h-3 bg-border-dark rounded mb-4"></div>
-          <div class="w-40 h-5 bg-border-dark rounded mb-3"></div>
-          <div class="w-full h-3 bg-border-dark rounded mb-2"></div>
-          <div class="w-5/6 h-3 bg-border-dark rounded"></div>
-        </div>
-        <div class="w-24 h-4 bg-border-dark rounded"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Divider -->
-  <div class="divider-hairline"></div>
-
-  <!-- 6. Technical Skills Section -->
-  <section id="skills" class="py-24 px-6 max-w-7xl mx-auto reveal-on-scroll">
-    <div class="font-mono text-[10px] tracking-widest text-brass-accent uppercase mb-2">04 // SYSTEMS</div>
-    <h2 class="text-3xl md:text-4xl font-serif font-light text-text-ivory mb-16">Technical Skills</h2>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 tilt-card-container">
-      
-      <!-- Group 1: Languages -->
-      <div class="tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px]">
-        <div>
-          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2 flex items-center justify-between">
-            <span>01 // LANGUAGES</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          </h3>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-500/80"></span>
-              Python
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              Java
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              C/C++
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              SQL
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              JavaScript
-            </span>
-          </div>
-        </div>
-        <span class="font-mono text-[9px] text-text-slate uppercase tracking-wider">Deterministic Codebases</span>
-      </div>
-
-      <!-- Group 2: AI/GenAI -->
-      <div class="tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px]">
-        <div>
-          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2 flex items-center justify-between">
-            <span>02 // AI & GEN_AI</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-          </h3>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-brass-accent/30 rounded text-[10px] font-mono text-brass-accent flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-brass-accent"></span>
-              LLMs
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
-              RAG
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
-              Multi-Agent AI
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
-              Prompt Eng.
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-cyan-400"></span>
-              byLLM
-            </span>
-          </div>
-        </div>
-        <span class="font-mono text-[9px] text-text-slate uppercase tracking-wider">Semantic Graph Orchestration</span>
-      </div>
-
-      <!-- Group 3: Frameworks -->
-      <div class="tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px]">
-        <div>
-          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2 flex items-center justify-between">
-            <span>03 // FRAMEWORKS</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          </h3>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              FastAPI
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              React
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              Node.js
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              Flask
-            </span>
-          </div>
-        </div>
-        <span class="font-mono text-[9px] text-text-slate uppercase tracking-wider">API Core & Client Layer</span>
-      </div>
-
-      <!-- Group 4: Environment -->
-      <div class="tilt-card glass-panel chip-card p-6 rounded flex flex-col justify-between h-[230px]">
-        <div>
-          <h3 class="font-mono text-[11px] uppercase tracking-widest text-brass-accent mb-4 border-b border-border-dark/40 pb-2 flex items-center justify-between">
-            <span>04 // ENVIRONMENT</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-          </h3>
-          <div class="flex flex-wrap gap-1.5">
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              Git
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              Docker
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              Azure
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              Postman
-            </span>
-            <span class="px-2 py-0.5 bg-bg-dark/60 border border-border-dark rounded text-[10px] font-mono text-text-ivory flex items-center gap-1">
-              <span class="w-1 h-1 rounded-full bg-emerald-400/60"></span>
-              Linux
-            </span>
-          </div>
-        </div>
-        <span class="font-mono text-[9px] text-text-slate uppercase tracking-wider">Sys Ops & Containerization</span>
-    </div>
-  </section>
-
-  <!-- Divider -->
-  <div class="divider-hairline"></div>
-
-  <!-- 7. LeetCode Stats Section -->
-  <section id="leetcode" class="py-24 px-6 max-w-7xl mx-auto reveal-on-scroll">
-    <div class="font-mono text-[10px] tracking-widest text-brass-accent uppercase mb-2">05 // TELEMETRY</div>
-    <h2 class="text-3xl md:text-4xl font-serif font-light text-text-ivory mb-16">LeetCode Metrics</h2>
-
-    <!-- Dynamic container loaded by script -->
-    <div id="leetcode-container" class="max-w-3xl mx-auto bg-card-dark border border-border-dark/80 p-6 md:p-8 rounded relative">
-      
-      <!-- Skeleton loader -->
-      <div class="animate-pulse flex flex-col gap-6">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div class="w-32 h-6 bg-border-dark rounded"></div>
-          <div class="w-24 h-4 bg-border-dark rounded"></div>
-        </div>
-        <div class="space-y-4">
-          <div class="w-full h-4 bg-border-dark rounded"></div>
-          <div class="w-full h-4 bg-border-dark rounded"></div>
-          <div class="w-full h-4 bg-border-dark rounded"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Divider -->
-  <div class="divider-hairline"></div>
-
-  <!-- 8. Education Section -->
-  <section id="education" class="py-24 px-6 max-w-7xl mx-auto reveal-on-scroll">
-    <div class="font-mono text-[10px] tracking-widest text-brass-accent uppercase mb-2">06 // CREDENTIALS</div>
-    <h2 class="text-3xl md:text-4xl font-serif font-light text-text-ivory mb-16">Education</h2>
-
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      
-      <!-- College -->
-      <div class="p-6 md:p-8 bg-card-dark/40 border border-border-dark/60 rounded flex flex-col justify-between hover:border-brass-accent/25 transition-colors">
-        <div>
-          <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-6">
-            <div>
-              <h3 class="text-lg font-sans font-bold text-text-ivory">Parul University</h3>
-              <p class="text-xs font-mono text-brass-accent mt-0.5">B.Tech in Computer Science Engineering (AI & ML)</p>
-            </div>
-            <span class="font-mono text-[11px] text-text-slate sm:text-right shrink-0">Aug 2024 – May 2028</span>
-          </div>
-          
-          <ul class="space-y-2.5 font-sans text-xs text-text-slate leading-relaxed">
-            <li class="flex items-start gap-2">
-              <span class="text-brass-accent font-mono shrink-0">»</span>
-              <span>Primary core curriculum in Applied AI architectures, Neural Networks, and Advanced Data Structures.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-brass-accent font-mono shrink-0">»</span>
-              <span>Engaging in research involving prompt frameworks and model evaluation pipelines.</span>
-            </li>
-          </ul>
-        </div>
+        <p class="ct-p">
+          If you are looking for an AI engineer who understands compiler structures, multi-agent frameworks, and industrial logical constraints, feel free to drop a message.
+        </p>
         
-        <div class="mt-8 pt-4 border-t border-border-dark/30 flex flex-wrap gap-1">
-          <span class="px-2 py-0.5 bg-bg-dark rounded text-[9px] font-mono text-text-slate">Neural Networks</span>
-          <span class="px-2 py-0.5 bg-bg-dark rounded text-[9px] font-mono text-text-slate">Deep Learning</span>
-          <span class="px-2 py-0.5 bg-bg-dark rounded text-[9px] font-mono text-text-slate">NLP</span>
-          <span class="px-2 py-0.5 bg-bg-dark rounded text-[9px] font-mono text-text-slate">Algorithms</span>
-        </div>
+        <form class="ct-form" onsubmit="handleContactSubmit(event)">
+          <input type="text" id="contact-name" class="ct-input" placeholder="Your name" required>
+          <input type="email" id="contact-email" class="ct-input" placeholder="Your email" required>
+          <textarea id="contact-message" class="ct-textarea" placeholder="Your message..." required></textarea>
+          <button type="submit" id="contact-btn" class="ct-send">Send message ↗</button>
+        </form>
       </div>
 
-      <!-- High School -->
-      <div class="p-6 md:p-8 bg-card-dark/40 border border-border-dark/60 rounded flex flex-col justify-between hover:border-brass-accent/25 transition-colors">
-        <div>
-          <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-6">
+      <div>
+        <div class="ct-links">
+          <div class="ct-lk" onclick="window.open('mailto:harshchavan1030@gmail.com')">
             <div>
-              <h3 class="text-lg font-sans font-bold text-text-ivory">CBSE Secondary School</h3>
-              <p class="text-xs font-mono text-brass-accent mt-0.5">12th Standard Science (JEE/MHT-CET)</p>
+              <div class="ct-ll">Email</div>
+              <div class="ct-lv">harshchavan1030@gmail.com</div>
             </div>
-            <span class="font-mono text-[11px] text-text-slate sm:text-right shrink-0">June 2022 – June 2024</span>
+            <div class="ct-arr">↗</div>
           </div>
-          
-          <ul class="space-y-2.5 font-sans text-xs text-text-slate leading-relaxed">
-            <li class="flex items-start gap-2">
-              <span class="text-brass-accent font-mono shrink-0">»</span>
-              <span>Intensive study in Advanced Calculus, Physics, Analytical Chemistry, and Computer Science.</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="text-brass-accent font-mono shrink-0">»</span>
-              <span>Developed programming bases in object-oriented logic with C++.</span>
-            </li>
-          </ul>
-        </div>
-        
-        <div class="mt-8 pt-4 border-t border-border-dark/30 flex flex-wrap gap-1">
-          <span class="px-2 py-0.5 bg-bg-dark rounded text-[9px] font-mono text-text-slate">Advanced Mathematics</span>
-          <span class="px-2 py-0.5 bg-bg-dark rounded text-[9px] font-mono text-text-slate">Physics</span>
-          <span class="px-2 py-0.5 bg-bg-dark rounded text-[9px] font-mono text-text-slate">OOP C++</span>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- Divider -->
-  <div class="divider-hairline"></div>
-
-  <!-- 9. Contact / Connect Section -->
-  <section id="contact" class="py-24 px-6 max-w-7xl mx-auto reveal-on-scroll">
-    <div class="font-mono text-[10px] tracking-widest text-brass-accent uppercase mb-2">07 // COMPILATION</div>
-    <h2 class="text-3xl md:text-4xl font-serif font-light text-text-ivory mb-16">Connect</h2>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
-      
-      <!-- Info Column -->
-      <div class="lg:col-span-5 flex flex-col justify-between space-y-12">
-        <div>
-          <h3 class="text-2xl font-serif font-light text-text-ivory mb-4">Request Connection</h3>
-          <p class="font-sans text-text-slate text-sm leading-relaxed max-w-sm mb-8">
-            Interested in deploying structured generative agents or looking for model-agnostic prompting support? Open for internships and junior engineer assignments.
-          </p>
-
-          <!-- Core details -->
-          <div class="space-y-5 font-mono text-xs">
-            <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-brass-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              <a href="mailto:harshchavan1030@gmail.com" class="text-text-ivory hover:text-brass-accent transition-colors">harshchavan1030@gmail.com</a>
+          <div class="ct-lk" onclick="window.open('https://www.linkedin.com/in/harsh-chavan-5804a5344/')">
+            <div>
+              <div class="ct-ll">LinkedIn</div>
+              <div class="ct-lv">linkedin.com/in/harsh-chavan-5804a5344</div>
             </div>
-            <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-brass-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-              <a href="tel:8208701176" class="text-text-ivory hover:text-brass-accent transition-colors">+91 8208701176</a>
+            <div class="ct-arr">↗</div>
+          </div>
+          <div class="ct-lk" onclick="window.open('https://github.com/harshchavan009')">
+            <div>
+              <div class="ct-ll">GitHub</div>
+              <div class="ct-lv">github.com/harshchavan009</div>
             </div>
-            <div class="flex items-center gap-3">
-              <svg class="w-4 h-4 text-brass-accent" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              <span class="text-text-slate">Vadodara, Gujarat, India</span>
+            <div class="ct-arr">↗</div>
+          </div>
+          <div class="ct-lk" style="cursor:default">
+            <div>
+              <div class="ct-ll">Location</div>
+              <div class="ct-lv">Vadodara, Gujarat, India</div>
             </div>
           </div>
-        </div>
-
-        <!-- Social footprint + download -->
-        <div class="space-y-6">
-          <div class="flex gap-4">
-            <!-- Github -->
-            <a href="https://github.com/harshchavan009" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded border border-border-dark bg-card-dark hover:border-brass-accent/40 text-text-slate hover:text-brass-accent transition-all" aria-label="GitHub">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-            </a>
-            <!-- LinkedIn -->
-            <a href="https://www.linkedin.com/in/harsh-chavan-5804a5344/" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded border border-border-dark bg-card-dark hover:border-brass-accent/40 text-text-slate hover:text-brass-accent transition-all" aria-label="LinkedIn">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </a>
-            <!-- Leetcode -->
-            <a href="https://leetcode.com/u/ChavanHarshSantosh" target="_blank" rel="noopener noreferrer" class="p-2.5 rounded border border-border-dark bg-card-dark hover:border-brass-accent/40 text-text-slate hover:text-brass-accent transition-all" aria-label="LeetCode">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M13.483 0a1.374 1.374 0 0 0-.961.414l-9.88 9.88a1.374 1.374 0 0 0 0 1.94l6.05 6.05a1.374 1.374 0 0 0 1.94 0l9.88-9.88a1.374 1.374 0 0 0 0-1.94L14.466.414A1.374 1.374 0 0 0 13.483 0zm.01 2.22l5.05 5.05-9.39 9.39-5.05-5.05zM12.63 11.23a.77.77 0 0 1 .55-.23.77.77 0 0 1 .55.23l1.88 1.88a.77.77 0 0 1 0 1.09l-.4.4a.77.77 0 0 1-1.09 0l-.79-.79-.79.79a.77.77 0 0 1-1.09 0l-.4-.4a.77.77 0 0 1 0-1.09z"/><path d="M16.19 18.062a.548.548 0 0 1-.546.548h-5.91a2.186 2.186 0 0 1-2.185-2.185v-5.91a.548.548 0 1 1 1.095 0v5.91c0 .6.49 1.09 1.09 1.09h5.91a.548.548 0 0 1 .546.547z"/></svg>
-            </a>
+          <div class="ct-lk" style="cursor:default">
+            <div>
+              <div class="ct-ll">Coffee</div>
+              <div class="ct-lv">Ginger Chai, Vadodara @ 5 PM</div>
+            </div>
           </div>
-
-          <a href="resume.pdf" download class="inline-flex items-center gap-2 px-5 py-2.5 border border-brass-accent hover:bg-brass-accent hover:text-bg-dark text-brass-accent font-mono text-[11px] uppercase tracking-widest font-semibold rounded transition-all">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            Download PDF Resume
-          </a>
-        </div>
-      </div>
-
-      <!-- Contact Form -->
-      <div class="lg:col-span-7">
-        <div class="p-6 md:p-8 bg-card-dark border border-border-dark/60 rounded">
-          <form id="contact-form" class="space-y-6">
-            <div>
-              <label for="name" class="block font-mono text-[10px] text-text-slate uppercase tracking-wider mb-2">Name</label>
-              <input type="text" id="name" name="name" required class="w-full bg-bg-dark border border-border-dark focus:border-brass-accent focus:outline-none rounded px-4 py-3 text-sm text-text-ivory transition-colors">
-            </div>
-            <div>
-              <label for="email" class="block font-mono text-[10px] text-text-slate uppercase tracking-wider mb-2">Email Address</label>
-              <input type="email" id="email" name="email" required class="w-full bg-bg-dark border border-border-dark focus:border-brass-accent focus:outline-none rounded px-4 py-3 text-sm text-text-ivory transition-colors">
-            </div>
-            <div>
-              <label for="message" class="block font-mono text-[10px] text-text-slate uppercase tracking-wider mb-2">Message</label>
-              <textarea id="message" name="message" rows="5" required class="w-full bg-bg-dark border border-border-dark focus:border-brass-accent focus:outline-none rounded px-4 py-3 text-sm text-text-ivory transition-colors resize-none"></textarea>
-            </div>
-            
-            <div id="form-feedback" class="p-4 rounded border text-xs font-mono hidden"></div>
-
-            <button type="submit" class="w-full py-3.5 bg-brass-accent hover:bg-brass-accent/90 text-bg-dark font-mono text-xs uppercase tracking-widest font-bold rounded transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer">
-              <span>Send Transmission</span>
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
-            </button>
-          </form>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="py-12 border-t border-border-dark/60 bg-bg-dark text-text-slate mt-24">
-    <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-6 font-mono text-[10px]">
-      <div class="text-center md:text-left">
-        <p class="font-bold text-text-ivory">Harsh Chavan</p>
-        <p class="mt-1">AI & Industrial Control Systems Integration</p>
-      </div>
-      <p>&copy; 2026 H.CHAVAN. All rights reserved. // SECURE_SYS</p>
-    </div>
+  <!-- Copyright Footer -->
+  <footer class="footer">
+    <span>Harsh Chavan // AI Systems</span>
+    <span>© 2026. All systems nominal.</span>
   </footer>
 
-  <!-- CDNs for Three.js and Confetti -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <!-- Script file loading -->
+  <!-- Modal details card popup -->
+  <div id="modal-overlay" class="modal-overlay" onclick="closeVentureModal()">
+    <div class="modal-body" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeVentureModal()">×</button>
+      <div id="modal-tag" class="modal-tag">INDUSTRIAL GEN_AI</div>
+      <h3 id="modal-title" class="modal-title">Wipro PARI</h3>
+      <div id="modal-org" class="modal-org">AI / GenAI Developer Intern · May – July 2026</div>
+      
+      <div id="modal-desc" class="modal-desc">
+        <p>
+          Collaborated within the robotics and automation intelligence teams to design model-agnostic solutions using the <strong>byLLM</strong> prompt optimization engine.
+        </p>
+        <p>
+          <strong>Key Accomplishments:</strong>
+        </p>
+        <p>
+          • Built a structured prompt compiler that compiles user-defined operations directly into Siemens S7-1500 Ladder Logic (LAD) program rungs, decreasing standard logical debugging times.
+        </p>
+        <p>
+          • Standardized system prompts to ensure identical rung compile structures across OpenAI GPT, Anthropic Claude, and Google Gemini models.
+        </p>
+        <p>
+          • Set up Python evaluation benchmarks measuring model compliance, tracking structural alignment correctness.
+        </p>
+      </div>
+
+      <div class="modal-impacts">
+        <span class="modal-pill">Python</span>
+        <span class="modal-pill">byLLM</span>
+        <span class="modal-pill">Prompt Engineering</span>
+        <span class="modal-pill">Siemens PLC</span>
+        <span class="modal-pill">Logic Automation</span>
+      </div>
+      
+      <a class="modal-link" href="https://pari.wipro.com/" target="_blank" rel="noopener noreferrer">Visit Wipro PARI website ↗</a>
+    </div>
+  </div>
+
+  <!-- Local Custom Logic Script -->
   <script src="script.js"></script>
 </body>
 </html>
