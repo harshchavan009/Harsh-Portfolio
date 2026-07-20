@@ -127,33 +127,85 @@
       <h2 class="sh-title">Specialist engineer combining <em>generative AI</em> with <em>industrial systems</em></h2>
     </div>
     
-    <div class="about-split">
-      <div class="about-img">
-        <img src="profile.png" alt="Harsh Chavan">
-      </div>
+    <div class="about-grid">
+      <div class="about-card-main">
+        <div class="about-bio-header">
+          <div class="about-avatar">
+            <img src="profile.png" alt="Harsh Chavan">
+          </div>
+          <div>
+            <h3 class="about-name">Harsh Chavan</h3>
+            <div class="about-role">AI & Generative AI Systems Engineer</div>
+            <div class="about-edu">B.Tech CSE (AI & ML) @ Parul University</div>
+          </div>
+        </div>
 
-      <div>
         <div class="about-p">
           <p>
-            I am a professional <strong>AI & Generative AI Systems Engineer</strong> specializing in structured prompt compilers, RAG systems, and multi-agent workflow automations. Currently pursuing my B.Tech in CSE (AI & ML) at Parul University, I focus on building scalable solutions where logical precision meets cognitive intelligence.
+            I specialize in architecting high-reliability AI solutions at the intersection of <strong>Generative AI</strong>, <strong>Industrial Automation (PLC Logic)</strong>, and <strong>Multi-Agent RAG Orchestration</strong>. My engineering focus bridges theoretical deep learning with production-grade deterministic software layers.
           </p>
           <p>
-            My engineering expertise uniquely bridges <strong>industrial logic</strong> and <strong>semantic AI</strong>. During my internship at <strong>Wipro PARI</strong>, I developed model-agnostic prompt orchestration pipelines with <strong>byLLM</strong> to automatically compile structured pseudo-code directly into Siemens S7-1500 PLC Ladder Logic (LAD) outputs, decreasing engineering overhead by 40%.
-          </p>
-          <p>
-            I architect end-to-end intelligent software layers, leveraging knowledge graphs (Neo4j), vector stores (Qdrant), and FastAPI microservices containerized via Docker to support enterprise reasoning pipelines.
+            During my internship at <strong>Wipro PARI</strong>, I designed model-agnostic prompt compilers using <strong>byLLM</strong> to translate structured specs directly into Siemens S7-1500 Ladder Logic (LAD) outputs — cutting standard PLC debugging overhead by <strong>40%</strong>.
           </p>
         </div>
-        
-        <div class="about-logos">
-          <span class="about-logo">Python</span>
-          <span class="about-logo">Java</span>
-          <span class="about-logo">C/C++</span>
-          <span class="about-logo">byLLM</span>
-          <span class="about-logo">LangGraph</span>
-          <span class="about-logo">Siemens PLC</span>
-          <span class="about-logo">Docker</span>
-          <span class="about-logo">Azure</span>
+      </div>
+
+      <!-- Core Focus Pillars -->
+      <div class="about-pillars">
+        <div class="pillar-card">
+          <div class="pillar-icon">🧠</div>
+          <div class="pillar-title">Generative AI & LLM Systems</div>
+          <p class="pillar-desc">Model-agnostic prompt compilers, multi-agent orchestrations (LangGraph), byLLM framework, and structural evaluation suites.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon">⚡</div>
+          <div class="pillar-title">Industrial Logic & Automation</div>
+          <p class="pillar-desc">Siemens S7-1500 PLC Ladder Logic (LAD), automated specification synthesis, and factory process control logic.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon">🌐</div>
+          <div class="pillar-title">Knowledge Graphs & Vector Search</div>
+          <p class="pillar-desc">Enterprise Graph RAG architectures combining Neo4j knowledge graphs, Qdrant vector databases, and FastAPI services.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech Stack Categorized Grid -->
+    <div class="about-stack-section">
+      <div class="stack-cat">
+        <div class="stack-cat-title">Core Languages</div>
+        <div class="stack-tags">
+          <span class="stack-tag">Python</span>
+          <span class="stack-tag">Java</span>
+          <span class="stack-tag">C / C++</span>
+          <span class="stack-tag">SQL</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-title">AI & ML Frameworks</div>
+        <div class="stack-tags">
+          <span class="stack-tag">byLLM</span>
+          <span class="stack-tag">LangGraph</span>
+          <span class="stack-tag">RAG Systems</span>
+          <span class="stack-tag">OpenAI / Claude API</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-title">Databases & Tools</div>
+        <div class="stack-tags">
+          <span class="stack-tag">Neo4j (Graph DB)</span>
+          <span class="stack-tag">Qdrant (Vector DB)</span>
+          <span class="stack-tag">FastAPI</span>
+          <span class="stack-tag">Docker</span>
+          <span class="stack-tag">Azure</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <div class="stack-cat-title">Industrial Systems</div>
+        <div class="stack-tags">
+          <span class="stack-tag">Siemens S7-1500 PLC</span>
+          <span class="stack-tag">Ladder Logic (LAD)</span>
+          <span class="stack-tag">Wipro PARI AI Engine</span>
         </div>
       </div>
     </div>
@@ -168,57 +220,95 @@
     </div>
   </div>
 
-  <!-- Ventures/Work Section -->
+  <!-- Professional Work Experience Section -->
   <section id="ventures" class="sec reveal-on-scroll">
     <div class="sh">
-      <div class="sh-label">Work</div>
-      <h2 class="sh-title">Experience I've <em>shaped</em></h2>
+      <div class="sh-label">Professional Experience</div>
+      <h2 class="sh-title">Where I've <em>engineered impact</em></h2>
     </div>
 
-    <div class="ven-grid">
-      <!-- Venture Card 1: Wipro PARI -->
-      <div class="ven-card" onclick="openVentureModal()">
-        <div class="ven-bg" style="background:linear-gradient(135deg, #1f1118 0%, #0d060a 100%)">
-          <!-- Geometric background shape -->
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.06;z-index:0">
-            <svg width="180" height="180" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="0.8">
-              <circle cx="50" cy="50" r="35" />
-              <circle cx="50" cy="50" r="25" />
-              <line x1="15" y1="50" x2="85" y2="50" />
-              <line x1="50" y1="15" x2="50" y2="85" />
-            </svg>
+    <div class="exp-timeline">
+      <!-- Experience Item 1: Wipro PARI -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role-wrap">
+            <h3 class="exp-role">GenAI Developer Intern</h3>
+            <div class="exp-company">Wipro PARI <span class="exp-badge">Industrial Automation & AI</span></div>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-date">May 2026 – July 2026</span>
+            <span class="exp-loc">Pune, MH, India</span>
           </div>
         </div>
-        
-        <div class="ven-overlay">
-          <div class="ven-otag">INDUSTRIAL AI · MAY – JULY 2026</div>
-          <div class="ven-oname">Wipro PARI</div>
-          <div class="ven-oline">Automated Siemens PLC S7-1500 Ladder Logic generation from structured specifications via byLLM prompt frameworks.</div>
-          
-          <div class="ven-bottom">
-            <div class="ven-oarrow">View details →</div>
-            <a class="ven-ext" href="https://pari.wipro.com/" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">wipro.pari.com ↗</a>
+
+        <div class="exp-body">
+          <p class="exp-summary">
+            Engineered model-agnostic AI pipelines to automatically compile structured pseudo-code into Siemens S7-1500 PLC Ladder Logic (LAD), accelerating industrial factory automation workflows.
+          </p>
+
+          <ul class="exp-bullets">
+            <li>
+              <strong>Siemens PLC LAD Generator:</strong> Built a model-agnostic prompt compiler leveraging <strong>byLLM</strong> that parses structured user specifications into executable Siemens S7-1500 Ladder Logic program rungs.
+            </li>
+            <li>
+              <strong>40% Overhead Reduction:</strong> Streamlined industrial programming workflows, decreasing manual ladder logic drafting and debugging overhead by <strong>40%</strong> for automation engineering teams.
+            </li>
+            <li>
+              <strong>Multi-Model Determinism:</strong> Standardized prompt orchestration layers ensuring structural compliance across OpenAI GPT-4, Anthropic Claude 3.5, and Google Gemini LLMs.
+            </li>
+            <li>
+              <strong>Evaluation Harness:</strong> Developed automated Python evaluation suites measuring structural alignment, syntax validity, and industrial safety constraints.
+            </li>
+          </ul>
+
+          <div class="exp-tech-list">
+            <span class="exp-tech-pill">Python</span>
+            <span class="exp-tech-pill">byLLM</span>
+            <span class="exp-tech-pill">Siemens S7-1500 PLC</span>
+            <span class="exp-tech-pill">Ladder Logic (LAD)</span>
+            <span class="exp-tech-pill">LLM Prompt Compilers</span>
+            <span class="exp-tech-pill">FastAPI</span>
           </div>
         </div>
       </div>
-      
-      <!-- Placeholder card to maintain design layout grid balance -->
-      <div class="ven-card" style="cursor:default">
-        <div class="ven-bg" style="background:linear-gradient(135deg, #0e121a 0%, #06080d 100%)">
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.04;z-index:0">
-            <svg width="160" height="160" viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="0.8">
-              <rect x="25" y="25" width="50" height="50" rx="4" />
-              <line x1="25" y1="25" x2="75" y2="75" />
-              <line x1="75" y1="25" x2="25" y2="75" />
-            </svg>
+
+      <!-- Experience Item 2: Parul University -->
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role-wrap">
+            <h3 class="exp-role">B.Tech CSE (AI & ML)</h3>
+            <div class="exp-company">Parul University <span class="exp-badge">Academic & System Research</span></div>
+          </div>
+          <div class="exp-meta">
+            <span class="exp-date">2024 – 2028</span>
+            <span class="exp-loc">Vadodara, GJ, India</span>
           </div>
         </div>
-        <div class="ven-overlay">
-          <div class="ven-otag">SYSTEM METRICS // ALL SECURE</div>
-          <div class="ven-oname">Future Systems</div>
-          <div class="ven-oline">Researching scalable multi-agent systems and semantic compilers for real-world deployments.</div>
-          <div class="ven-bottom">
-            <div class="ven-oarrow" style="opacity:0.3">Active development</div>
+
+        <div class="exp-body">
+          <p class="exp-summary">
+            Specializing in Deep Learning, Graph Knowledge Architectures, Multi-Agent Systems, and Algorithmic Optimization with a <strong>7.50 / 10.0 CGPA</strong>.
+          </p>
+
+          <ul class="exp-bullets">
+            <li>
+              <strong>Enterprise Graph RAG:</strong> Architected graph-based Retrieval-Augmented Generation (RAG) applications integrating Neo4j knowledge graphs, Qdrant vector databases, and LangGraph orchestrations.
+            </li>
+            <li>
+              <strong>LeetCode Problem Solving:</strong> Solved <strong>350+ data structures & algorithms problems</strong> across dynamic programming, trees, and graph algorithms.
+            </li>
+            <li>
+              <strong>Open Source Systems:</strong> Shipped 3+ production-grade repositories focusing on AI compilers and automated system orchestrations.
+            </li>
+          </ul>
+
+          <div class="exp-tech-list">
+            <span class="exp-tech-pill">Deep Learning</span>
+            <span class="exp-tech-pill">LangGraph</span>
+            <span class="exp-tech-pill">Neo4j</span>
+            <span class="exp-tech-pill">Qdrant</span>
+            <span class="exp-tech-pill">C / C++</span>
+            <span class="exp-tech-pill">Java</span>
           </div>
         </div>
       </div>
