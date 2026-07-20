@@ -359,10 +359,30 @@ async function fetchGitHubRepos() {
       return;
     }
 
+    // Metadata dictionary for authentic GitHub repos without API descriptions
+    const repoMetadata = {
+      "Multi-Agent-RAG": {
+        description: "Enterprise multi-agent RAG orchestration framework combining graph knowledge bases and vector search.",
+        tech: "Python · LangGraph · Neo4j"
+      },
+      "Harsh-Portfolio": {
+        description: "Official personal portfolio codebase featuring AI & Generative AI Systems showcase and interactive telemetry.",
+        tech: "HTML5 · CSS3 · JavaScript"
+      },
+      "Waste-Mangement-System": {
+        description: "Automated smart waste classification and management system logic built with modern software architecture.",
+        tech: "JavaScript · Node.js"
+      },
+      "harshchavan009": {
+        description: "GitHub Profile configuration repository and central developer ecosystem hub for Harsh Chavan.",
+        tech: "Markdown · Systems"
+      }
+    };
+
     displayRepos.forEach(repo => {
-      const date = new Date(repo.pushed_at || repo.updated_at);
-      const formattedDate = getRelativeTime(date);
-      const language = repo.language || "Python";
+      const meta = repoMetadata[repo.name] || {};
+      const desc = repo.description || meta.description || "Public repository hosted on GitHub by Harsh Chavan.";
+      const tech = meta.tech || repo.language || "Python";
 
       const card = document.createElement("a");
       card.className = "proj-card";
@@ -382,9 +402,9 @@ async function fetchGitHubRepos() {
           </div>
         </div>
         <div class="proj-name">${repo.name}</div>
-        <div class="proj-desc">${repo.description || "No project description provided in repository logs."}</div>
+        <div class="proj-desc">${desc}</div>
         <div class="proj-footer">
-          <span class="proj-tech">${language}</span>
+          <span class="proj-tech">${tech}</span>
           <span class="proj-link">View Repo ↗</span>
         </div>
       `;
