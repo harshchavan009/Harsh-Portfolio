@@ -116,7 +116,7 @@ body:not(.dark) #three-canvas-container {
 .hero{min-height:100vh;display:grid;grid-template-columns:1fr 320px;gap:48px;align-items:center;padding-top:48px;position:relative;overflow:hidden}
 .hero-left{position:relative;z-index:1}
 .h-label{font-family:var(--fm);font-size:0.62rem;color:var(--text3);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:24px;opacity:0;animation:fi .5s ease .15s forwards}
-.h-title{font-family:var(--fd);font-size:clamp(2.8rem,6vw,5rem);font-weight:400;line-height:1.05;letter-spacing:-0.03em;color:var(--text);margin-bottom:28px;max-width:600px;opacity:0;animation:fi .6s ease .25s forwards}
+.h-title{font-family:var(--fd);font-size:clamp(2.8rem,6vw,5rem);font-weight:400;line-height:1.05;letter-spacing:-0.03em;color:var(--text);margin-bottom:28px;max-width:660px;opacity:0;animation:fi .6s ease .25s forwards}
 .h-title em{font-style:italic}
 .h-sub{font-size:1rem;line-height:1.7;color:var(--text2);max-width:440px;margin-bottom:36px;opacity:0;animation:fi .5s ease .4s forwards}
 .h-row{display:flex;gap:12px;opacity:0;animation:fi .5s ease .5s forwards}
