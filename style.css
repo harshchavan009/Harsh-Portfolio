@@ -192,6 +192,19 @@ body:not(.dark) #three-canvas-container {
 .exp-tech-list{display:flex;flex-wrap:wrap;gap:6px;padding-top:16px;border-top:1px dashed var(--bd)}
 .exp-tech-pill{font-family:var(--fm);font-size:0.58rem;padding:4px 12px;border-radius:100px;background:var(--bg2);border:1px solid var(--bd);color:var(--text2)}
 
+/* EDUCATION SECTION */
+.edu-grid{display:flex;flex-direction:column;gap:16px}
+.edu-card{background:var(--card-bg);border:1px solid var(--bd);border-radius:12px;padding:28px;transition:all .3s ease}
+.edu-card:hover{border-color:var(--bd2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.edu-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px;flex-wrap:wrap}
+.edu-degree{font-family:var(--fd);font-size:1.5rem;color:var(--text);font-weight:400;line-height:1.2}
+.edu-spec{font-size:0.88rem;color:var(--text2);font-weight:500;margin-top:2px}
+.edu-inst{font-size:0.82rem;color:var(--text3);margin-top:2px}
+.edu-meta{text-align:right;font-family:var(--fm);font-size:0.65rem}
+.edu-year{display:block;color:var(--text);font-weight:500;margin-bottom:2px}
+.edu-cgpa{font-family:var(--fm);font-size:0.6rem;padding:3px 10px;border-radius:100px;background:var(--bg2);border:1px solid var(--bd);color:var(--text);display:inline-block}
+.edu-body p{font-size:0.88rem;line-height:1.65;color:var(--text2)}
+
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;display:flex;align-items:center;justify-content:center;padding:40px;backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity 0.3s ease}
 .modal-overlay.open{opacity:1;pointer-events:auto}
