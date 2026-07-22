@@ -271,7 +271,7 @@ AI Engineer • Generative AI Engineer • LLM Engineer • Full-Stack AI Develo
 
 🐙 GitHub: https://github.com/harshchavan009
 
-🌐 Portfolio: https://your-portfolio.vercel.app
+🌐 Portfolio: [https://your-portfolio.vercel.app](https://harsh-portfolio-git-main-harshchavan009s-projects.vercel.app/)
 
 ---
 
