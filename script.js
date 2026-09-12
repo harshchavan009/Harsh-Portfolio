@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initFloatingGlyphs();
   initActiveNavHighlight();
   initLeetcodeBars();
+  fetchLeetCodeStats();
 });
 
 /* =========================================================================
@@ -519,7 +520,7 @@ function handleContactSubmit(event) {
 }
 
 /* =========================================================================
-   11. LEETCODE PROGRESS BARS ANIMATION
+   11. LEETCODE PROGRESS BARS ANIMATION & REAL-TIME STATS SYNC
    ========================================================================= */
 function initLeetcodeBars() {
   const bars = document.querySelectorAll(".leetcode-bar-fill");
@@ -529,6 +530,7 @@ function initLeetcodeBars() {
         const bar = entry.target;
         const targetWidth = bar.getAttribute("data-width");
         bar.style.width = targetWidth;
+        bar.dataset.animated = "true";
         observer.unobserve(bar); // Animate once
       }
     });
@@ -539,3 +541,87 @@ function initLeetcodeBars() {
 
   bars.forEach(bar => observer.observe(bar));
 }
+
+async function fetchLeetCodeStats() {
+  const username = "ChavanHarshSantosh";
+  const endpoints = [
+    `https://leetcode-api-faisalshohag.vercel.app/${username}`,
+    `https://alfa-leetcode-api.onrender.com/userProfile/${username}`
+  ];
+
+  let stats = null;
+  for (const url of endpoints) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) continue;
+      const data = await response.json();
+      if (data && (typeof data.totalSolved === "number" || data.matchedUserStats)) {
+        stats = data;
+        break;
+      }
+    } catch (err) {
+      console.warn("LeetCode sync endpoint fallback:", url, err);
+    }
+  }
+
+  if (!stats) return; // Retain authentic clean fallbacks if APIs are unreachable
+
+  const total = stats.totalSolved ?? 177;
+  const easy = stats.easySolved ?? 113;
+  const totalEasy = stats.totalEasy ?? 963;
+  const medium = stats.mediumSolved ?? 52;
+  const totalMed = stats.totalMedium ?? 2111;
+  const hard = stats.hardSolved ?? 12;
+  const totalHard = stats.totalHard ?? 973;
+  const ranking = stats.ranking;
+
+  // 1. Update Hero metric
+  const heroCount = document.getElementById("hero-leetcode-count");
+  if (heroCount) {
+    heroCount.textContent = `${total}+`;
+  }
+
+  // 2. Update Total Problems Solved
+  const totalEl = document.getElementById("leetcode-total-val");
+  if (totalEl) {
+    totalEl.textContent = total;
+  }
+
+  // 3. Update Rank
+  const rankEl = document.getElementById("leetcode-rank");
+  if (rankEl && ranking) {
+    rankEl.innerHTML = `Global Rank: <strong>#${Number(ranking).toLocaleString()}</strong>`;
+  }
+
+  // 4. Update Labels
+  const easyLbl = document.getElementById("leetcode-easy-lbl");
+  if (easyLbl) easyLbl.textContent = `${easy} / ${Number(totalEasy).toLocaleString()}`;
+
+  const medLbl = document.getElementById("leetcode-medium-lbl");
+  if (medLbl) medLbl.textContent = `${medium} / ${Number(totalMed).toLocaleString()}`;
+
+  const hardLbl = document.getElementById("leetcode-hard-lbl");
+  if (hardLbl) hardLbl.textContent = `${hard} / ${Number(totalHard).toLocaleString()}`;
+
+  // 5. Update bar fill percentages (visual distribution of solved problems)
+  const easyPct = Math.round((easy / total) * 100) || 64;
+  const medPct = Math.round((medium / total) * 100) || 29;
+  const hardPct = Math.max(7, Math.round((hard / total) * 100)) || 7;
+
+  const barMap = [
+    { id: "leetcode-bar-easy", pct: easyPct },
+    { id: "leetcode-bar-medium", pct: medPct },
+    { id: "leetcode-bar-hard", pct: hardPct }
+  ];
+
+  barMap.forEach(({ id, pct }) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.setAttribute("data-width", `${pct}%`);
+      if (el.dataset.animated === "true") {
+        el.style.width = `${pct}%`;
+      }
+    }
+  });
+}
+

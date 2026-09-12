@@ -314,6 +314,37 @@ body:not(.dark) #three-canvas-container {
 }
 
 /* LEETCODE SECTION */
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #2ec070;
+  font-family: var(--fm);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-left: 6px;
+}
+.live-pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #2ec070;
+  box-shadow: 0 0 0 0 rgba(46, 192, 112, 0.7);
+  animation: live-pulse-glow 2s infinite;
+}
+@keyframes live-pulse-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 192, 112, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(46, 192, 112, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 192, 112, 0);
+  }
+}
 .leetcode-split {
   display: grid;
   grid-template-columns: 300px 1fr;
