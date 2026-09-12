@@ -339,45 +339,53 @@ async function fetchGitHubRepos() {
   const grid = document.getElementById("github-repo-grid");
   if (!grid) return;
 
-  // Metadata dictionary for authentic GitHub repos with enterprise descriptions
+  // Metadata dictionary for authentic GitHub repos with enterprise descriptions matching resume
   const repoMetadata = {
-    "Multi-Agent-RAG": {
+    "Revivepay-ai": {
       priority: 1,
-      description: "Enterprise multi-agent RAG orchestration framework combining graph knowledge bases, LangGraph, Qdrant, and FastAPI for intelligent document reasoning.",
-      tech: "Python · LangGraph · FastAPI · Qdrant"
+      title: "Revive AI — Autonomous Revenue Recovery Platform",
+      description: "AI-driven payment recovery platform combining LLM diagnosis, ML risk scoring, policy-controlled automation, and tamper-evident audit logging.",
+      tech: "Python · FastAPI · PostgreSQL · LLMs"
     },
-    "Waste-Mangement-System": {
+    "AIOS": {
       priority: 2,
-      description: "AI-powered municipal waste detection and routing platform featuring YOLOv8 object detection, OpenCV stream processing, and Dockerized microservices.",
-      tech: "Python · PyTorch · YOLOv8 · React"
+      title: "AIOS — Enterprise Multi-Agent AI Platform",
+      description: "Enterprise AI platform integrating multi-agent orchestration, Graph RAG, semantic + graph retrieval, and full-stack services with Qdrant and Docker.",
+      tech: "Python · LangGraph · FastAPI · Neo4j · Qdrant"
+    },
+    "Multi-Agent-RAG": {
+      priority: 3,
+      title: "Enterprise Multi-Agent Graph RAG System",
+      description: "Enterprise-grade multi-agent RAG platform using LangGraph for intelligent document retrieval, vector search, context-aware reasoning, and production REST APIs.",
+      tech: "Python · LangGraph · LangChain · FastAPI"
     },
     "BIS-Intelligence-": {
-      priority: 3,
+      priority: 4,
+      title: "BIS Intelligence — Regulatory AI & RAG Engine",
       description: "Regulatory compliance AI & RAG system engineered for hallmarking standards verification, automated rule extraction, and evaluator workflows.",
       tech: "Python · FastAPI · LangChain · Vector Search"
     },
-    "AI-Project-Generator": {
-      priority: 4,
-      description: "Autonomous developer scaffolding engine that compiles structured specifications into complete production-grade full-stack microservices.",
-      tech: "Python · TypeScript · OpenAI API"
-    },
-    "Revivepay-ai": {
+    "Waste-Mangement-System": {
       priority: 5,
-      description: "FinTech AI intelligence system providing automated transaction reconciliation, fraud pattern heuristics, and predictive financial insights.",
-      tech: "Python · React · Financial AI"
+      title: "Smart Waste Management System",
+      description: "AI-powered municipal waste detection and routing platform featuring YOLOv8 object detection, OpenCV stream processing, and Dockerized microservices.",
+      tech: "Python · PyTorch · YOLOv8 · React"
     },
     "Harsh-Portfolio": {
       priority: 6,
+      title: "Harsh Chavan Portfolio Engine",
       description: "High-performance personal engineering portfolio featuring Three.js dual-mesh GPU shaders, vanilla JS, and live telemetry integrations.",
       tech: "HTML5 · Three.js · JavaScript · CSS3"
     },
     "Leetcode-Solutions": {
       priority: 7,
+      title: "LeetCode Solutions Repository",
       description: "Algorithmic problem solutions categorized by time/space complexity, data structures, and optimal design patterns.",
       tech: "Python · C++ · Algorithms"
     },
     "harshchavan009": {
       priority: 8,
+      title: "Harsh Chavan Ecosystem Hub",
       description: "GitHub Profile configuration repository and central developer ecosystem hub for Harsh Chavan.",
       tech: "Markdown · Systems"
     }
@@ -426,6 +434,7 @@ async function fetchGitHubRepos() {
 
     displayRepos.forEach(repo => {
       const meta = repoMetadata[repo.name] || {};
+      const title = meta.title || repo.name;
       const desc = meta.description || repo.description || "Public repository hosted on GitHub by Harsh Chavan.";
       const tech = meta.tech || repo.language || "Python";
 
@@ -446,7 +455,7 @@ async function fetchGitHubRepos() {
             ${repo.stargazers_count}
           </div>
         </div>
-        <div class="proj-name">${repo.name}</div>
+        <div class="proj-name">${title}</div>
         <div class="proj-desc">${desc}</div>
         <div class="proj-footer">
           <span class="proj-tech">${tech}</span>
