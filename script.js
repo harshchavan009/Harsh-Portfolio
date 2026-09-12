@@ -339,20 +339,84 @@ async function fetchGitHubRepos() {
   const grid = document.getElementById("github-repo-grid");
   if (!grid) return;
 
+  // Metadata dictionary for authentic GitHub repos with enterprise descriptions
+  const repoMetadata = {
+    "Multi-Agent-RAG": {
+      priority: 1,
+      description: "Enterprise multi-agent RAG orchestration framework combining graph knowledge bases, LangGraph, Qdrant, and FastAPI for intelligent document reasoning.",
+      tech: "Python · LangGraph · FastAPI · Qdrant"
+    },
+    "Waste-Mangement-System": {
+      priority: 2,
+      description: "AI-powered municipal waste detection and routing platform featuring YOLOv8 object detection, OpenCV stream processing, and Dockerized microservices.",
+      tech: "Python · PyTorch · YOLOv8 · React"
+    },
+    "BIS-Intelligence-": {
+      priority: 3,
+      description: "Regulatory compliance AI & RAG system engineered for hallmarking standards verification, automated rule extraction, and evaluator workflows.",
+      tech: "Python · FastAPI · LangChain · Vector Search"
+    },
+    "AI-Project-Generator": {
+      priority: 4,
+      description: "Autonomous developer scaffolding engine that compiles structured specifications into complete production-grade full-stack microservices.",
+      tech: "Python · TypeScript · OpenAI API"
+    },
+    "Revivepay-ai": {
+      priority: 5,
+      description: "FinTech AI intelligence system providing automated transaction reconciliation, fraud pattern heuristics, and predictive financial insights.",
+      tech: "Python · React · Financial AI"
+    },
+    "Harsh-Portfolio": {
+      priority: 6,
+      description: "High-performance personal engineering portfolio featuring Three.js dual-mesh GPU shaders, vanilla JS, and live telemetry integrations.",
+      tech: "HTML5 · Three.js · JavaScript · CSS3"
+    },
+    "Leetcode-Solutions": {
+      priority: 7,
+      description: "Algorithmic problem solutions categorized by time/space complexity, data structures, and optimal design patterns.",
+      tech: "Python · C++ · Algorithms"
+    },
+    "harshchavan009": {
+      priority: 8,
+      description: "GitHub Profile configuration repository and central developer ecosystem hub for Harsh Chavan.",
+      tech: "Markdown · Systems"
+    }
+  };
+
   try {
+    // 1. Fetch user profile to update total repo stats live
+    fetch("https://api.github.com/users/harshchavan009")
+      .then(res => res.ok ? res.json() : null)
+      .then(profile => {
+        if (profile && profile.public_repos) {
+          const repoCountEl = document.getElementById("hero-repo-count");
+          if (repoCountEl) {
+            repoCountEl.textContent = `${profile.public_repos}+`;
+          }
+        }
+      })
+      .catch(() => {});
+
+    // 2. Fetch user repositories
     const response = await fetch("https://api.github.com/users/harshchavan009/repos?sort=updated&per_page=100");
     if (!response.ok) throw new Error("GitHub API error");
     const data = await response.json();
 
     if (!Array.isArray(data)) throw new Error("Invalid payload");
 
-    // Filter out forks and sort by pushed/updated timestamp
-    const activeRepos = data
-      .filter(repo => !repo.fork)
-      .sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
+    // Filter out forks
+    const activeRepos = data.filter(repo => !repo.fork);
 
-    // Take top 4 repositories
-    const displayRepos = activeRepos.slice(0, 4);
+    // Sort by priority first (flagship corporate projects), then by recent push timestamp
+    activeRepos.sort((a, b) => {
+      const pA = repoMetadata[a.name]?.priority ?? 99;
+      const pB = repoMetadata[b.name]?.priority ?? 99;
+      if (pA !== pB) return pA - pB;
+      return new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime();
+    });
+
+    // Take top 6 repositories for a solid 6-card display
+    const displayRepos = activeRepos.slice(0, 6);
     grid.innerHTML = ""; // Clear loader skeletons
 
     if (displayRepos.length === 0) {
@@ -360,29 +424,9 @@ async function fetchGitHubRepos() {
       return;
     }
 
-    // Metadata dictionary for authentic GitHub repos without API descriptions
-    const repoMetadata = {
-      "Multi-Agent-RAG": {
-        description: "Enterprise multi-agent RAG orchestration framework combining graph knowledge bases and vector search.",
-        tech: "Python · LangGraph · Neo4j"
-      },
-      "Harsh-Portfolio": {
-        description: "Official personal portfolio codebase featuring AI & Generative AI Systems showcase and interactive telemetry.",
-        tech: "HTML5 · CSS3 · JavaScript"
-      },
-      "Waste-Mangement-System": {
-        description: "Automated smart waste classification and management system logic built with modern software architecture.",
-        tech: "JavaScript · Node.js"
-      },
-      "harshchavan009": {
-        description: "GitHub Profile configuration repository and central developer ecosystem hub for Harsh Chavan.",
-        tech: "Markdown · Systems"
-      }
-    };
-
     displayRepos.forEach(repo => {
       const meta = repoMetadata[repo.name] || {};
-      const desc = repo.description || meta.description || "Public repository hosted on GitHub by Harsh Chavan.";
+      const desc = meta.description || repo.description || "Public repository hosted on GitHub by Harsh Chavan.";
       const tech = meta.tech || repo.language || "Python";
 
       const card = document.createElement("a");
@@ -415,7 +459,6 @@ async function fetchGitHubRepos() {
     initTiltCards();
   } catch (err) {
     console.warn("GitHub dynamic repo sync failed. Rendering fallback:", err);
-    grid.innerHTML = "";
   }
 }
 

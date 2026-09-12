@@ -4,8 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Harsh Chavan | AI & Generative AI Systems Engineer</title>
-  <meta name="description" content="Portfolio of Harsh Chavan, AI/ML & Generative AI Systems Engineer. Specializing in RAG, Multi-Agent Systems, and Industrial Automation (PLC Ladder Logic).">
-  <meta name="keywords" content="Harsh Chavan, AI Engineer, Generative AI, LLM, PLC, Siemens, Ladder Logic, LangGraph, RAG">
+  <meta name="description" content="Official portfolio of Harsh Chavan, AI/ML & Generative AI Systems Engineer. Specializing in Multi-Agent RAG, Prompt Compilers, and Industrial Automation AI.">
+  <meta name="keywords" content="Harsh Chavan, AI Engineer, Generative AI, LLM, PLC, Siemens, Ladder Logic, LangGraph, RAG, FastAPI, Docker">
+  <meta name="author" content="Harsh Chavan">
+  <link rel="canonical" href="https://harsh-portfolio-git-main-harshchavan009s-projects.vercel.app/">
+
+  <!-- Open Graph / LinkedIn / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://harsh-portfolio-git-main-harshchavan009s-projects.vercel.app/">
+  <meta property="og:title" content="Harsh Chavan | AI & Generative AI Systems Engineer">
+  <meta property="og:description" content="AI & Generative AI Systems Engineer specializing in Multi-Agent RAG Orchestration, LLM Prompt Compilers, and Industrial Automation AI.">
+  <meta property="og:image" content="profile.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Harsh Chavan | AI & Generative AI Systems Engineer">
+  <meta name="twitter:description" content="Specializing in Multi-Agent RAG, Prompt Compilers, and Industrial Automation AI.">
+  <meta name="twitter:image" content="profile.png">
   
   <!-- CSS Stylesheet -->
   <link rel="stylesheet" href="style.css">
@@ -27,14 +42,19 @@
     <div class="nav-center">
       <button class="nav-a on" onclick="scrollToSection('home')">Home</button>
       <button class="nav-a" onclick="scrollToSection('about')">About</button>
-      <button class="nav-a" onclick="scrollToSection('ventures')">Work</button>
+      <button class="nav-a" onclick="scrollToSection('ventures')">Experience</button>
       <button class="nav-a" onclick="scrollToSection('projects')">Projects</button>
       <button class="nav-a" onclick="scrollToSection('education')">Education</button>
+      <button class="nav-a" onclick="scrollToSection('certifications')">Certifications</button>
       <button class="nav-a" onclick="scrollToSection('leetcode')">LeetCode</button>
       <button class="nav-a" onclick="scrollToSection('contact')">Contact</button>
     </div>
 
     <div class="nav-r">
+      <a class="nav-resume-btn" href="resume.pdf" target="_blank" rel="noopener noreferrer">
+        <span>Resume</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
       <button id="theme-toggle" class="theme-toggle" title="Toggle theme">☀️</button>
       <button id="hamburger" class="hamburger" aria-label="Toggle menu">
         <span></span>
@@ -48,16 +68,21 @@
   <div id="mobile-drawer" class="mobile-drawer">
     <button class="nav-a on" onclick="scrollToSection('home')">Home</button>
     <button class="nav-a" onclick="scrollToSection('about')">About</button>
-    <button class="nav-a" onclick="scrollToSection('ventures')">Work</button>
+    <button class="nav-a" onclick="scrollToSection('ventures')">Experience</button>
     <button class="nav-a" onclick="scrollToSection('projects')">Projects</button>
     <button class="nav-a" onclick="scrollToSection('education')">Education</button>
+    <button class="nav-a" onclick="scrollToSection('certifications')">Certifications</button>
     <button class="nav-a" onclick="scrollToSection('leetcode')">LeetCode</button>
     <button class="nav-a" onclick="scrollToSection('contact')">Contact</button>
+    <a class="nav-a" href="resume.pdf" target="_blank" rel="noopener noreferrer" style="color:var(--text);font-weight:600">View Resume (PDF) ↗</a>
   </div>
 
   <!-- Hero Section -->
   <section id="home" class="sec hero">
     <div class="hero-left">
+      <div class="hero-status-pill">
+        <span class="status-dot"></span> Available for AI Engineering Internships & Roles
+      </div>
       <div class="h-label">AI ENGINEER // SYSTEM GENERATION</div>
       <h1 class="h-title">
         I build systems that bridge the gap between <em>deterministic automation</em> and <em>semantic AI</em>.
@@ -67,18 +92,22 @@
       </p>
       
       <div class="h-row">
-        <button class="h-cta" onclick="scrollToSection('contact')">Get in touch</button>
-        <button class="h-cta-sec" onclick="scrollToSection('ventures')">See my work</button>
+        <button class="h-cta" onclick="scrollToSection('contact')">Get in touch ↗</button>
+        <a class="h-cta-resume" href="resume.pdf" target="_blank" rel="noopener noreferrer">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Resume (PDF)
+        </a>
+        <button class="h-cta-sec" onclick="scrollToSection('ventures')">Explore Experience</button>
       </div>
 
       <div class="h-stats">
         <div>
-          <div class="hs-v">3+</div>
-          <div class="hs-l">Projects Shipped</div>
+          <div class="hs-v" id="hero-repo-count">22+</div>
+          <div class="hs-l">Repositories Built</div>
         </div>
         <div>
           <div class="hs-v">7.50</div>
-          <div class="hs-l">CGPA (CS/AI)</div>
+          <div class="hs-l">CGPA (CSE AI/ML)</div>
         </div>
         <div>
           <div class="hs-v" id="hero-leetcode-count">177+</div>
@@ -86,7 +115,7 @@
         </div>
         <div>
           <div class="hs-v">1</div>
-          <div class="hs-l">Industrial Intern</div>
+          <div class="hs-l">Industrial AI Intern</div>
         </div>
       </div>
     </div>
@@ -344,33 +373,143 @@
             <div class="edu-inst">Parul University · Vadodara, Gujarat, India</div>
           </div>
           <div class="edu-meta">
-            <span class="edu-year">2024 – 2028</span>
+            <span class="edu-year">August 2024 – May 2028</span>
             <div class="edu-cgpa">CGPA: 7.50 / 10.0</div>
           </div>
         </div>
         <div class="edu-body">
-          <p>Coursework & Research Focus: Deep Learning, Graph Knowledge Architectures, Multi-Agent Systems, Data Structures, and Compiler Logic.</p>
+          <p>Rigorous computer science curriculum with specialization in Artificial Intelligence & Machine Learning. Core focus on Deep Learning, Multi-Agent Systems, Data Structures & Algorithms, Distributed Systems, and Industrial Automation.</p>
         </div>
       </div>
 
-      <!-- Education Item 2: Higher Secondary -->
+      <!-- Education Item 2: CBSE Senior Secondary -->
       <div class="edu-card">
         <div class="edu-header">
           <div>
-            <h3 class="edu-degree">Higher Secondary Certificate (HSC)</h3>
-            <div class="edu-spec">Stream: Pure Sciences & Mathematics</div>
-            <div class="edu-inst">Gujarat Secondary & Higher Secondary Education Board · Vadodara, Gujarat</div>
+            <h3 class="edu-degree">Senior Secondary Certificate (CBSE - 12th)</h3>
+            <div class="edu-spec">Stream: Science (Physics, Chemistry, Mathematics · JEE / MHT-CET)</div>
+            <div class="edu-inst">Central Board of Secondary Education · Khed, Ratnagiri, Maharashtra</div>
           </div>
           <div class="edu-meta">
-            <span class="edu-year">2022 – 2024</span>
-            <div class="edu-cgpa">Science Board</div>
+            <span class="edu-year">June 2022 – June 2024</span>
+            <div class="edu-cgpa">Score: 70.05%</div>
           </div>
         </div>
         <div class="edu-body">
-          <p>Foundational instruction in advanced mathematics, physics, computer fundamentals, and logical computation.</p>
+          <p>Intensive pre-engineering coursework in advanced differential calculus, classical mechanics, logical computation, and physical sciences.</p>
+        </div>
+      </div>
+
+      <!-- Education Item 3: Maharashtra Board SSC -->
+      <div class="edu-card">
+        <div class="edu-header">
+          <div>
+            <h3 class="edu-degree">Secondary School Certificate (SSC - 10th)</h3>
+            <div class="edu-spec">Distinction in Mathematics & Sciences</div>
+            <div class="edu-inst">Maharashtra State Board · Khed, Ratnagiri, Maharashtra</div>
+          </div>
+          <div class="edu-meta">
+            <span class="edu-year">June 2021 – May 2022</span>
+            <div class="edu-cgpa">Score: 91.40% (Distinction)</div>
+          </div>
+        </div>
+        <div class="edu-body">
+          <p>Graduated in the top percentile with distinction across science, mathematics, and analytical reasoning foundations.</p>
         </div>
       </div>
     </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- Certifications & Recognitions Section -->
+  <section id="certifications" class="sec-sm reveal-on-scroll">
+    <div class="sh">
+      <div class="sh-label">Verified Credentials</div>
+      <h2 class="sh-title">Certifications & <em>industry honors</em></h2>
+    </div>
+
+      <div class="cert-grid">
+        <!-- Cert 1: Wipro PARI -->
+        <div class="cert-card">
+          <div>
+            <div class="cert-header">
+              <div class="cert-icon">🤖</div>
+              <div>
+                <div class="cert-title">Generative AI Industrial Internship</div>
+                <div class="cert-issuer">Wipro Pari Robotics Private Limited</div>
+              </div>
+            </div>
+            <p class="cert-desc">
+              Industry-certified engineering internship developing model-agnostic prompt compilers, LLM evaluation suites, and industrial robotics reasoning workflows.
+            </p>
+          </div>
+          <div class="cert-footer">
+            <span class="cert-tag">Industrial Automation · GenAI</span>
+            <span class="cert-status">✓ Verified Credential</span>
+          </div>
+        </div>
+
+        <!-- Cert 2: ByteXL Platform Award -->
+        <div class="cert-card">
+          <div>
+            <div class="cert-header">
+              <div class="cert-icon">🏆</div>
+              <div>
+                <div class="cert-title">ByteXL Annual Best Project Award</div>
+                <div class="cert-issuer">ByteXL Engineering Platform</div>
+              </div>
+            </div>
+            <p class="cert-desc">
+              Distinguished with the Annual Best Project Award for engineering excellence, scalable architectural patterns, and production-level full-stack AI execution.
+            </p>
+          </div>
+          <div class="cert-footer">
+            <span class="cert-tag">Systems Architecture · Award</span>
+            <span class="cert-status">★ Top Honor</span>
+          </div>
+        </div>
+
+        <!-- Cert 3: HackerRank Problem Solving -->
+        <div class="cert-card">
+          <div>
+            <div class="cert-header">
+              <div class="cert-icon">⚡</div>
+              <div>
+                <div class="cert-title">Problem Solving (Algorithms & DSA)</div>
+                <div class="cert-issuer">HackerRank Technical Assessment</div>
+              </div>
+            </div>
+            <p class="cert-desc">
+              Demonstrated mastery in computational data structures, dynamic programming, asymptotic complexity analysis, and algorithmic optimization.
+            </p>
+          </div>
+          <div class="cert-footer">
+            <span class="cert-tag">Algorithms · Data Structures</span>
+            <span class="cert-status">✓ Certified</span>
+          </div>
+        </div>
+
+        <!-- Cert 4: Python & Java Engineering -->
+        <div class="cert-card">
+          <div>
+            <div class="cert-header">
+              <div class="cert-icon">💻</div>
+              <div>
+                <div class="cert-title">Python & Java Software Engineering</div>
+                <div class="cert-issuer">Core Developer Credentials</div>
+              </div>
+            </div>
+            <p class="cert-desc">
+              Verified competency in enterprise object-oriented design, backend microservice patterns, memory management, and asynchronous I/O architectures.
+            </p>
+          </div>
+          <div class="cert-footer">
+            <span class="cert-tag">Python · Java · Backend</span>
+            <span class="cert-status">✓ Certified</span>
+          </div>
+        </div>
+      </div>
   </section>
 
   <div class="rule"></div>
@@ -472,6 +611,13 @@
             </div>
             <div class="ct-arr">↗</div>
           </div>
+          <div class="ct-lk" onclick="window.open('tel:+918208701176')">
+            <div>
+              <div class="ct-ll">Phone / Direct Call</div>
+              <div class="ct-lv">+91 8208701176</div>
+            </div>
+            <div class="ct-arr">↗</div>
+          </div>
           <div class="ct-lk" onclick="window.open('https://www.linkedin.com/in/harsh-chavan-5804a5344/')">
             <div>
               <div class="ct-ll">LinkedIn</div>
@@ -486,17 +632,19 @@
             </div>
             <div class="ct-arr">↗</div>
           </div>
-          <div class="ct-lk" style="cursor:default">
+          <div class="ct-lk" onclick="window.open('resume.pdf')">
             <div>
-              <div class="ct-ll">Location</div>
-              <div class="ct-lv">Vadodara, Gujarat, India</div>
+              <div class="ct-ll">Curriculum Vitae</div>
+              <div class="ct-lv">Harsh_Chavan_Resume.pdf (Download)</div>
             </div>
+            <div class="ct-arr">↓</div>
           </div>
           <div class="ct-lk" style="cursor:default">
             <div>
-              <div class="ct-ll">Coffee</div>
-              <div class="ct-lv">Ginger Chai, Vadodara @ 5 PM</div>
+              <div class="ct-ll">Location & Availability</div>
+              <div class="ct-lv">Vadodara / Pune, India · Open for Roles</div>
             </div>
+            <div class="ct-badge-sm">Active</div>
           </div>
         </div>
       </div>
