@@ -349,9 +349,9 @@ async function fetchGitHubRepos() {
     },
     "AIOS": {
       priority: 2,
-      title: "AIOS — Enterprise Multi-Agent AI Platform",
-      description: "Enterprise AI platform integrating multi-agent orchestration, Graph RAG, semantic + graph retrieval, and full-stack services with Qdrant and Docker.",
-      tech: "Python · LangGraph · FastAPI · Neo4j · Qdrant"
+      title: "AIOS — Multi-Agent AI Platform",
+      description: "Enterprise AI platform integrating multi-agent orchestration, Graph RAG, prompt engineering, and LLM evaluation for intelligent enterprise workflows.",
+      tech: "Python · LangGraph · RAG · FastAPI · Neo4j"
     },
     "Multi-Agent-RAG": {
       priority: 3,
