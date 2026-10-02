@@ -126,10 +126,10 @@ Highlights my internship experience, responsibilities, and technical contributio
 
 A collection of my featured software and AI projects including:
 
-- Enterprise Multi-Agent Graph RAG Platform
-- EcoVision AI
-- AI-Based PLC Prompt Engineering Framework
-- AI Chatbot Applications
+- **Revive AI** — Autonomous Revenue Recovery Platform (Python, FastAPI, PostgreSQL, LLMs)
+- **AIOS** — Enterprise Multi-Agent AI Platform (Python, LangGraph, RAG, FastAPI, Neo4j)
+- **Enterprise Multi-Agent Graph RAG System** (Python, LangGraph, LangChain, FastAPI)
+- **Siemens S7-1500 PLC Automation Framework** (byLLM, Meaning-Typed Prompt Compilers)
 
 ---
 
