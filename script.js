@@ -546,29 +546,67 @@ function closeVentureModal() {
 }
 
 /* =========================================================================
-   10. CONTACT FORM SUBMIT HANDLER
+   10. CONTACT FORM SUBMIT HANDLER (Web3Forms Integration)
    ========================================================================= */
-function handleContactSubmit(event) {
+async function handleContactSubmit(event) {
   event.preventDefault();
   const btn = document.getElementById("contact-btn");
   if (!btn) return;
 
+  const nameInput = document.getElementById("contact-name");
+  const emailInput = document.getElementById("contact-email");
+  const messageInput = document.getElementById("contact-message");
+
+  const name = nameInput ? nameInput.value.trim() : "";
+  const email = emailInput ? emailInput.value.trim() : "";
+  const message = messageInput ? messageInput.value.trim() : "";
+
+  if (!name || !email || !message) return;
+
+  const originalText = "Send message ↗";
   btn.innerText = "Sending...";
   btn.disabled = true;
 
-  setTimeout(() => {
-    btn.innerText = "Sent ✓";
-    
-    // Clear inputs
-    document.getElementById("contact-name").value = "";
-    document.getElementById("contact-email").value = "";
-    document.getElementById("contact-message").value = "";
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        access_key: "e6f87c0b-659d-4742-97f4-98fa313c1a03",
+        name: name,
+        email: email,
+        message: message,
+        from_name: "Portfolio Contact Form",
+        subject: `New Opportunity Message from ${name}`
+      })
+    });
 
+    const result = await response.json();
+
+    if (result.success) {
+      btn.innerText = "Sent Successfully ✓";
+      if (nameInput) nameInput.value = "";
+      if (emailInput) emailInput.value = "";
+      if (messageInput) messageInput.value = "";
+
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.disabled = false;
+      }, 4000);
+    } else {
+      throw new Error(result.message || "Failed to submit");
+    }
+  } catch (error) {
+    console.error("Web3Forms submission error:", error);
+    btn.innerText = "Error sending. Try again!";
     setTimeout(() => {
-      btn.innerText = "Send message ↗";
+      btn.innerText = originalText;
       btn.disabled = false;
-    }, 3000);
-  }, 1200);
+    }, 4000);
+  }
 }
 
 /* =========================================================================

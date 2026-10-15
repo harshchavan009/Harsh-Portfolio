@@ -663,10 +663,14 @@
           If you are looking for an AI engineer who understands compiler structures, multi-agent frameworks, and industrial logical constraints, feel free to drop a message.
         </p>
         
-        <form class="ct-form" onsubmit="handleContactSubmit(event)">
-          <input type="text" id="contact-name" class="ct-input" placeholder="Your name" required>
-          <input type="email" id="contact-email" class="ct-input" placeholder="Your email" required>
-          <textarea id="contact-message" class="ct-textarea" placeholder="Your message..." required></textarea>
+        <form class="ct-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="handleContactSubmit(event)">
+          <input type="hidden" name="access_key" value="e6f87c0b-659d-4742-97f4-98fa313c1a03">
+          <input type="hidden" name="from_name" value="Portfolio Contact Form">
+          <input type="hidden" name="subject" value="New Recruiter Message from Portfolio">
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+          <input type="text" id="contact-name" name="name" class="ct-input" placeholder="Your name" required>
+          <input type="email" id="contact-email" name="email" class="ct-input" placeholder="Your email" required>
+          <textarea id="contact-message" name="message" class="ct-textarea" placeholder="Your message..." required></textarea>
           <button type="submit" id="contact-btn" class="ct-send">Send message ↗</button>
         </form>
       </div>
