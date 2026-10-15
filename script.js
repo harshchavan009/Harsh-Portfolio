@@ -12,6 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
   initActiveNavHighlight();
   initLeetcodeBars();
   fetchLeetCodeStats();
+
+  // Instant re-validation whenever returning to tab
+  window.addEventListener("focus", () => {
+    fetchGitHubRepos();
+    fetchLeetCodeStats();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+      fetchGitHubRepos();
+      fetchLeetCodeStats();
+    }
+  });
 });
 
 /* =========================================================================
@@ -333,67 +345,130 @@ function initTiltCards() {
 }
 
 /* =========================================================================
-   6. GITHUB REPOSITORIES DYNAMIC SYNC
+   6. GITHUB REPOSITORIES DYNAMIC SYNC (Instant SWR + Realtime Pushes)
    ========================================================================= */
+const repoMetadata = {
+  "Revivepay-ai": {
+    title: "Revive AI — Autonomous Revenue Recovery Platform",
+    description: "AI-driven payment recovery platform combining LLM diagnosis, ML risk scoring, policy-controlled automation, and tamper-evident audit logging.",
+    tech: "TypeScript · Python · FastAPI · PostgreSQL · LLMs"
+  },
+  "AIOS": {
+    title: "AIOS — Multi-Agent AI Platform",
+    description: "Enterprise AI platform integrating multi-agent orchestration, Graph RAG, prompt engineering, and LLM evaluation for intelligent workflows.",
+    tech: "TypeScript · LangGraph · RAG · FastAPI · Neo4j"
+  },
+  "Bayora-": {
+    title: "Bayora — Intelligent Systems Suite",
+    description: "Full-stack intelligent enterprise platform featuring automated workflow orchestration, real-time analytics, and modern UI engineering.",
+    tech: "TypeScript · React · Node.js · Tailwind"
+  },
+  "BehaviourX": {
+    title: "BehaviourX — User Behavioral Intelligence Engine",
+    description: "Real-time user behavior analytics, anomaly detection, and predictive scoring system designed for web and AI applications.",
+    tech: "TypeScript · Machine Learning · Analytics · APIs"
+  },
+  "Multi-Agent-RAG": {
+    title: "Enterprise Multi-Agent Graph RAG System",
+    description: "Enterprise-grade multi-agent RAG platform using LangGraph for intelligent document retrieval, vector search, and context-aware reasoning.",
+    tech: "TypeScript · LangGraph · LangChain · FastAPI"
+  },
+  "BIS-Intelligence-": {
+    title: "BIS Intelligence — Regulatory AI & RAG Engine",
+    description: "Regulatory compliance AI & RAG system engineered for hallmarking standards verification, automated rule extraction, and evaluator workflows.",
+    tech: "TypeScript · FastAPI · LangChain · Vector Search"
+  },
+  "AI-Project-Generator": {
+    title: "AI Project Generator",
+    description: "Automated AI system that designs architectures, scaffolding, and prompt-driven boilerplate for modern software projects.",
+    tech: "Python · OpenAI · LLM Pipelines · Automation"
+  },
+  "Waste-Mangement-System": {
+    title: "Smart Waste Management System",
+    description: "AI-powered municipal waste detection and routing platform featuring YOLOv8 object detection, OpenCV stream processing, and Dockerized microservices.",
+    tech: "JavaScript · PyTorch · YOLOv8 · React"
+  },
+  "Data-Analytics-Dashboard": {
+    title: "Real-Time Data Analytics Dashboard",
+    description: "Interactive data visualization dashboard with live metrics filtering, telemetry analysis, and modular UI components.",
+    tech: "HTML5 · CSS3 · JavaScript · Charts"
+  },
+  "Harsh-Portfolio": {
+    title: "Harsh Chavan Portfolio Engine",
+    description: "High-performance personal engineering portfolio featuring Three.js dual-mesh GPU shaders, vanilla JS, and live telemetry integrations.",
+    tech: "HTML5 · Three.js · JavaScript · CSS3"
+  },
+  "Leetcode-Solutions": {
+    title: "LeetCode Solutions Repository",
+    description: "Algorithmic problem solutions categorized by time/space complexity, data structures, and optimal design patterns.",
+    tech: "Python · Algorithms · Data Structures"
+  },
+  "harshchavan009": {
+    title: "Harsh Chavan Ecosystem Hub",
+    description: "GitHub Profile configuration repository and central developer ecosystem hub for Harsh Chavan.",
+    tech: "Markdown · Systems"
+  }
+};
+
+function renderGitHubRepoCards(displayRepos) {
+  const grid = document.getElementById("github-repo-grid");
+  if (!grid || !Array.isArray(displayRepos) || displayRepos.length === 0) return;
+
+  grid.innerHTML = "";
+  displayRepos.forEach(repo => {
+    const meta = repoMetadata[repo.name] || {};
+    const title = meta.title || repo.name.replace(/[-_]/g, " ");
+    const desc = meta.description || repo.description || "Public repository engineered and maintained by Harsh Chavan.";
+    const tech = meta.tech || repo.language || "Python";
+
+    const card = document.createElement("a");
+    card.className = "proj-card";
+    card.href = repo.html_url || `https://github.com/harshchavan009/${repo.name}`;
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+    card.innerHTML = `
+      <div class="proj-top">
+        <svg class="proj-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 7V17a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+        </svg>
+        <div class="proj-stars">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          ${repo.stargazers_count ?? 0}
+        </div>
+      </div>
+      <div class="proj-name">${title}</div>
+      <div class="proj-desc">${desc}</div>
+      <div class="proj-footer">
+        <span class="proj-tech">${tech}</span>
+        <span class="proj-link">View Repo ↗</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  initTiltCards();
+}
+
 async function fetchGitHubRepos() {
   const grid = document.getElementById("github-repo-grid");
   if (!grid) return;
 
-  // Metadata dictionary for authentic GitHub repos with enterprise descriptions matching resume
-  const repoMetadata = {
-    "Revivepay-ai": {
-      priority: 1,
-      title: "Revive AI — Autonomous Revenue Recovery Platform",
-      description: "AI-driven payment recovery platform combining LLM diagnosis, ML risk scoring, policy-controlled automation, and tamper-evident audit logging.",
-      tech: "Python · FastAPI · PostgreSQL · LLMs"
-    },
-    "AIOS": {
-      priority: 2,
-      title: "AIOS — Multi-Agent AI Platform",
-      description: "Enterprise AI platform integrating multi-agent orchestration, Graph RAG, prompt engineering, and LLM evaluation for intelligent enterprise workflows.",
-      tech: "Python · LangGraph · RAG · FastAPI · Neo4j"
-    },
-    "Multi-Agent-RAG": {
-      priority: 3,
-      title: "Enterprise Multi-Agent Graph RAG System",
-      description: "Enterprise-grade multi-agent RAG platform using LangGraph for intelligent document retrieval, vector search, context-aware reasoning, and production REST APIs.",
-      tech: "Python · LangGraph · LangChain · FastAPI"
-    },
-    "BIS-Intelligence-": {
-      priority: 4,
-      title: "BIS Intelligence — Regulatory AI & RAG Engine",
-      description: "Regulatory compliance AI & RAG system engineered for hallmarking standards verification, automated rule extraction, and evaluator workflows.",
-      tech: "Python · FastAPI · LangChain · Vector Search"
-    },
-    "Waste-Mangement-System": {
-      priority: 5,
-      title: "Smart Waste Management System",
-      description: "AI-powered municipal waste detection and routing platform featuring YOLOv8 object detection, OpenCV stream processing, and Dockerized microservices.",
-      tech: "Python · PyTorch · YOLOv8 · React"
-    },
-    "Harsh-Portfolio": {
-      priority: 6,
-      title: "Harsh Chavan Portfolio Engine",
-      description: "High-performance personal engineering portfolio featuring Three.js dual-mesh GPU shaders, vanilla JS, and live telemetry integrations.",
-      tech: "HTML5 · Three.js · JavaScript · CSS3"
-    },
-    "Leetcode-Solutions": {
-      priority: 7,
-      title: "LeetCode Solutions Repository",
-      description: "Algorithmic problem solutions categorized by time/space complexity, data structures, and optimal design patterns.",
-      tech: "Python · C++ · Algorithms"
-    },
-    "harshchavan009": {
-      priority: 8,
-      title: "Harsh Chavan Ecosystem Hub",
-      description: "GitHub Profile configuration repository and central developer ecosystem hub for Harsh Chavan.",
-      tech: "Markdown · Systems"
-    }
-  };
+  // 1. Instant cache load from localStorage (0ms initial render)
+  const cached = localStorage.getItem("hc_portfolio_github_repos");
+  if (cached) {
+    try {
+      const parsed = JSON.parse(cached);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        renderGitHubRepoCards(parsed);
+      }
+    } catch (e) {}
+  }
 
   try {
-    // 1. Fetch user profile to update total repo stats live
-    fetch("https://api.github.com/users/harshchavan009")
+    // 2. Realtime user profile sync (cache-busting)
+    fetch("https://api.github.com/users/harshchavan009?_t=" + Date.now(), { cache: "no-store" })
       .then(res => res.ok ? res.json() : null)
       .then(profile => {
         if (profile && profile.public_repos) {
@@ -405,69 +480,28 @@ async function fetchGitHubRepos() {
       })
       .catch(() => {});
 
-    // 2. Fetch user repositories
-    const response = await fetch("https://api.github.com/users/harshchavan009/repos?sort=updated&per_page=100");
-    if (!response.ok) throw new Error("GitHub API error");
+    // 3. Realtime repos sync sorted by newest pushes
+    const response = await fetch("https://api.github.com/users/harshchavan009/repos?sort=pushed&direction=desc&per_page=30&_t=" + Date.now(), { cache: "no-store" });
+    if (!response.ok) throw new Error("GitHub API error: " + response.status);
     const data = await response.json();
 
     if (!Array.isArray(data)) throw new Error("Invalid payload");
 
-    // Filter out forks
-    const activeRepos = data.filter(repo => !repo.fork);
+    // Filter out forks and ecosystem config repo
+    const activeRepos = data.filter(repo => !repo.fork && repo.name !== "harshchavan009");
 
-    // Sort by priority first (flagship corporate projects), then by recent push timestamp
-    activeRepos.sort((a, b) => {
-      const pA = repoMetadata[a.name]?.priority ?? 99;
-      const pB = repoMetadata[b.name]?.priority ?? 99;
-      if (pA !== pB) return pA - pB;
-      return new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime();
-    });
+    // Strictly sort by pushed_at timestamp (most recently active repositories first)
+    activeRepos.sort((a, b) => new Date(b.pushed_at).getTime() - new Date(a.pushed_at).getTime());
 
-    // Take top 6 repositories for a solid 6-card display
+    // Top 6 recently pushed projects
     const displayRepos = activeRepos.slice(0, 6);
-    grid.innerHTML = ""; // Clear loader skeletons
 
-    if (displayRepos.length === 0) {
-      grid.innerHTML = `<div class="col-span-full py-8 text-center text-xs font-mono text-text3">NO PUBLIC SYSTEM REPOSITORIES DETECTED</div>`;
-      return;
+    if (displayRepos.length > 0) {
+      localStorage.setItem("hc_portfolio_github_repos", JSON.stringify(displayRepos));
+      renderGitHubRepoCards(displayRepos);
     }
-
-    displayRepos.forEach(repo => {
-      const meta = repoMetadata[repo.name] || {};
-      const title = meta.title || repo.name;
-      const desc = meta.description || repo.description || "Public repository hosted on GitHub by Harsh Chavan.";
-      const tech = meta.tech || repo.language || "Python";
-
-      const card = document.createElement("a");
-      card.className = "proj-card";
-      card.href = repo.html_url;
-      card.target = "_blank";
-      card.rel = "noopener noreferrer";
-      card.innerHTML = `
-        <div class="proj-top">
-          <svg class="proj-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M3 7V17a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-          </svg>
-          <div class="proj-stars">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            ${repo.stargazers_count}
-          </div>
-        </div>
-        <div class="proj-name">${title}</div>
-        <div class="proj-desc">${desc}</div>
-        <div class="proj-footer">
-          <span class="proj-tech">${tech}</span>
-          <span class="proj-link">View Repo ↗</span>
-        </div>
-      `;
-      grid.appendChild(card);
-    });
-
-    initTiltCards();
   } catch (err) {
-    console.warn("GitHub dynamic repo sync failed. Rendering fallback:", err);
+    console.warn("GitHub dynamic repo sync failed. Retaining current display:", err);
   }
 }
 
@@ -632,37 +666,16 @@ function initLeetcodeBars() {
   bars.forEach(bar => observer.observe(bar));
 }
 
-async function fetchLeetCodeStats() {
-  const username = "ChavanHarshSantosh";
-  const endpoints = [
-    `https://leetcode-api-faisalshohag.vercel.app/${username}`,
-    `https://alfa-leetcode-api.onrender.com/userProfile/${username}`
-  ];
+function applyLeetCodeStats(stats) {
+  if (!stats) return;
 
-  let stats = null;
-  for (const url of endpoints) {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) continue;
-      const data = await response.json();
-      if (data && (typeof data.totalSolved === "number" || data.matchedUserStats)) {
-        stats = data;
-        break;
-      }
-    } catch (err) {
-      console.warn("LeetCode sync endpoint fallback:", url, err);
-    }
-  }
-
-  if (!stats) return; // Retain authentic clean fallbacks if APIs are unreachable
-
-  const total = stats.totalSolved ?? 177;
-  const easy = stats.easySolved ?? 113;
-  const totalEasy = stats.totalEasy ?? 963;
-  const medium = stats.mediumSolved ?? 52;
-  const totalMed = stats.totalMedium ?? 2111;
-  const hard = stats.hardSolved ?? 12;
-  const totalHard = stats.totalHard ?? 973;
+  const total = stats.totalSolved ?? stats.solvedProblem ?? 376;
+  const easy = stats.easySolved ?? 137;
+  const totalEasy = stats.totalEasy ?? 971;
+  const medium = stats.mediumSolved ?? 209;
+  const totalMed = stats.totalMedium ?? 2128;
+  const hard = stats.hardSolved ?? 30;
+  const totalHard = stats.totalHard ?? 983;
   const ranking = stats.ranking;
 
   // 1. Update Hero metric
@@ -693,10 +706,10 @@ async function fetchLeetCodeStats() {
   const hardLbl = document.getElementById("leetcode-hard-lbl");
   if (hardLbl) hardLbl.textContent = `${hard} / ${Number(totalHard).toLocaleString()}`;
 
-  // 5. Update bar fill percentages (visual distribution of solved problems)
-  const easyPct = Math.round((easy / total) * 100) || 64;
-  const medPct = Math.round((medium / total) * 100) || 29;
-  const hardPct = Math.max(7, Math.round((hard / total) * 100)) || 7;
+  // 5. Update bar fill percentages
+  const easyPct = Math.round((easy / total) * 100) || 36;
+  const medPct = Math.round((medium / total) * 100) || 56;
+  const hardPct = Math.max(7, Math.round((hard / total) * 100)) || 8;
 
   const barMap = [
     { id: "leetcode-bar-easy", pct: easyPct },
@@ -708,10 +721,55 @@ async function fetchLeetCodeStats() {
     const el = document.getElementById(id);
     if (el) {
       el.setAttribute("data-width", `${pct}%`);
-      if (el.dataset.animated === "true") {
-        el.style.width = `${pct}%`;
-      }
+      el.style.width = `${pct}%`;
     }
   });
+}
+
+async function fetchLeetCodeStats() {
+  const username = "ChavanHarshSantosh";
+
+  // 1. Instant cache load from localStorage (0ms display)
+  const cached = localStorage.getItem("hc_portfolio_leetcode_stats");
+  if (cached) {
+    try {
+      applyLeetCodeStats(JSON.parse(cached));
+    } catch (e) {}
+  }
+
+  // 2. Fast parallel fetch with 3.5s timeout to prevent hanging
+  const fetchEndpoint = async (url) => {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 3500);
+    try {
+      const res = await fetch(url + `?_t=${Date.now()}`, { signal: controller.signal, cache: "no-store" });
+      clearTimeout(timer);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      if (data && (typeof data.totalSolved === "number" || typeof data.solvedProblem === "number")) {
+        return data;
+      }
+      throw new Error("Invalid format");
+    } catch (err) {
+      clearTimeout(timer);
+      throw err;
+    }
+  };
+
+  const endpoints = [
+    `https://alfa-leetcode-api.onrender.com/userProfile/${username}`,
+    `https://alfa-leetcode-api.onrender.com/${username}/solved`,
+    `https://leetcode-api-faisalshohag.vercel.app/${username}`
+  ];
+
+  try {
+    const stats = await Promise.any(endpoints.map(url => fetchEndpoint(url)));
+    if (stats) {
+      localStorage.setItem("hc_portfolio_leetcode_stats", JSON.stringify(stats));
+      applyLeetCodeStats(stats);
+    }
+  } catch (err) {
+    console.warn("Real-time LeetCode sync endpoints failed or timed out:", err);
+  }
 }
 
